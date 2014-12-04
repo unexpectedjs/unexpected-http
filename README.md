@@ -16,7 +16,7 @@ describe('google.com', function () {
         expect('GET http://google.com/', 'to yield response', {
             statusCode: 302,
             headers: {
-                Location: /www.google.\w+/
+                Location: /www\.google\.\w+/
             },
             body: /The document has moved/
         }, done);
