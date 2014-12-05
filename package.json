@@ -33,7 +33,7 @@
     "messy": "3.1.2",
     "passerror": "1.1.0",
     "underscore": "1.7.0",
-    "unexpected-messy": "2.2.5"
+    "unexpected-messy": "2.2.6"
   },
   "peerDependencies": {
     "unexpected": ">= 5.0.0-beta22"
