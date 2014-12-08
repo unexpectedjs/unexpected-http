@@ -10,7 +10,8 @@
     "lint": "jshint .",
     "test": "mocha && npm run lint",
     "travis": "npm test && npm run coverage && <coverage/lcov.info coveralls",
-    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot && echo google-chrome coverage/lcov-report/index.html"
+    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot && echo google-chrome coverage/lcov-report/index.html",
+    "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedHttp -s unexpectedHttp > unexpectedHttp.min.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,8 @@
     "unexpected": ">= 5.0.0-beta22"
   },
   "devDependencies": {
+    "browserify": "7.0.0",
+    "bundle-collapser": "1.1.0",
     "coveralls": "2.11.2",
     "istanbul": "0.3.4",
     "jshint": "2.5.10",
