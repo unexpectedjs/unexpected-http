@@ -24,6 +24,10 @@
     "server",
     "client"
   ],
+  "files": [
+    "unexpectedHttp.min.js",
+    "lib"
+  ],
   "author": "Andreas Lind <andreas@one.com>",
   "license": "BSD",
   "bugs": {
