@@ -51,6 +51,6 @@
     "jshint": "2.5.10",
     "magicpen-prism": "4.1.0",
     "mocha": "2.0.1",
-    "unexpected": "5.2.0"
+    "unexpected": "5.4.2"
   }
 }
