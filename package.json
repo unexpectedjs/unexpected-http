@@ -35,10 +35,10 @@
   },
   "homepage": "https://github.com/papandreou/unexpected-http",
   "dependencies": {
-    "messy": "4.0.1",
+    "messy": "4.1.1",
     "passerror": "1.1.0",
     "underscore": "1.7.0",
-    "unexpected-messy": "2.8.0"
+    "unexpected-messy": "2.9.0"
   },
   "peerDependencies": {
     "unexpected": "5"
