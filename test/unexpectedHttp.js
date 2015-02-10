@@ -26,4 +26,16 @@ describe('unexpected-http', function () {
             done();
         });
     });
+
+    it('should expect an error if the response is given as an error', function (done) {
+        var expectedError = new Error('getaddrinfo ENOTFOUND');
+        expectedError.code = expectedError.errno = 'ENOTFOUND';
+        expectedError.syscall = 'getaddrinfo';
+        expect(
+            'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
+            'to yield response',
+            expectedError,
+            done
+        );
+    });
 });
