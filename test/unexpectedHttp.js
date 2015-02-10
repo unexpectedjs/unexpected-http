@@ -1,4 +1,4 @@
-/*global describe, it*/
+/*global describe, it, beforeEach*/
 var unexpected = require('unexpected'),
     unexpectedHttp = require('../lib/unexpectedHttp'),
     http = require('http');
