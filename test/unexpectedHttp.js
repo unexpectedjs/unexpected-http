@@ -29,8 +29,8 @@ describe('unexpected-http', function () {
     });
 
     it('should expect an error if the response is given as an error @integration', function (done) {
-        var expectedError = new Error('getaddrinfo ENOTFOUND');
-        expectedError.code = expectedError.errno = 'ENOTFOUND';
+        var expectedError = new Error('getaddrinfo EADDRINFO');
+        expectedError.code = expectedError.errno = 'EADDRINFO';
         expectedError.syscall = 'getaddrinfo';
         expect(
             'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
