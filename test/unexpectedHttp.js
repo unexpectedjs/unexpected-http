@@ -29,8 +29,14 @@ describe('unexpected-http', function () {
     });
 
     it('should expect an error if the response is given as an error @integration', function (done) {
-        var expectedError = new Error('getaddrinfo EADDRINFO');
-        expectedError.code = expectedError.errno = 'EADDRINFO';
+        var expectedError;
+        if (process.version === 'v0.10.29') {
+            expectedError = new Error('getaddrinfo EADDRINFO');
+            expectedError.code = expectedError.errno = 'EADDRINFO';
+        } else {
+            expectedError = new Error('getaddrinfo ENOTFOUND');
+            expectedError.code = expectedError.errno = 'ENOTFOUND';
+        }
         expectedError.syscall = 'getaddrinfo';
         expect(
             'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
