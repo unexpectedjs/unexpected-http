@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/papandreou/unexpected-http.git"
+    "url": "git://github.com/unexpectedjs/unexpected-http.git"
   },
   "keywords": [
     "http",
@@ -31,9 +31,9 @@
   "author": "Andreas Lind <andreas@one.com>",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/papandreou/unexpected-http/issues"
+    "url": "https://github.com/unexpectedjs/unexpected-http/issues"
   },
-  "homepage": "https://github.com/papandreou/unexpected-http",
+  "homepage": "https://github.com/unexpectedjs/unexpected-http",
   "dependencies": {
     "messy": "4.3.0",
     "passerror": "1.1.0",
