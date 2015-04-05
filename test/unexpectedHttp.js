@@ -9,6 +9,14 @@ describe('unexpected-http', function () {
         .addAssertion('Error', 'to have message', function (expect, subject, value) {
             this.errorMode = 'nested';
             return expect(subject._isUnexpected ? subject.output.toString() : subject.message, 'to satisfy', value);
+        })
+        .addAssertion('when delayed a little bit', function (expect, subject) {
+            var that = this;
+            return expect.promise(function (run) {
+                setTimeout(run(function () {
+                    return that.shift(expect, subject, 0);
+                }), 1);
+            });
         });
 
     expect.output.installPlugin(require('magicpen-prism'));
@@ -66,11 +74,14 @@ describe('unexpected-http', function () {
         });
 
         describe('with a JSON response', function () {
-            it('should succeed', function () {
+            beforeEach(function () {
                 handleRequest = function (req, res, next) {
                     res.setHeader('Content-Type', 'application/json');
                     res.end('{"foo": 123}');
                 };
+            });
+
+            it('should succeed', function () {
                 return expect('GET ' + serverUrl, 'to yield response', {
                     body: {
                         foo: 123
@@ -79,10 +90,6 @@ describe('unexpected-http', function () {
             });
 
             it('should fail with a diff', function () {
-                handleRequest = function (req, res, next) {
-                    res.setHeader('Content-Type', 'application/json');
-                    res.end('{"foo": 123}');
-                };
                 return expect(
                     expect('GET ' + serverUrl, 'to yield response', {
                         body: {
@@ -105,6 +112,46 @@ describe('unexpected-http', function () {
                         '  foo: 123 // should equal 456\n' +
                         '}'
                 );
+            });
+
+            describe('with an expectation that requires async work', function () {
+                it('should succeed', function () {
+                    return expect('GET ' + serverUrl, 'to yield response', {
+                        body: {
+                            foo: expect.it('when delayed a little bit', 'to equal', 123)
+                        }
+                    });
+                });
+
+                it('should fail with a diff', function () {
+                    return expect(
+                        expect('GET ' + serverUrl, 'to yield response', {
+                            body: {
+                                foo: expect.it('when delayed a little bit', 'to equal', 456)
+                            }
+                        }),
+                        'when rejected',
+                        'to have message',
+                            "expected 'GET " + serverUrl + "' to yield response\n" +
+                            "{\n" +
+                            "  body: {\n" +
+                            "    foo: expect.it('when delayed a little bit', 'to equal', 456)\n" +
+                            "  }\n" +
+                            "}\n" +
+                            '\n' +
+                            'GET / HTTP/1.1\n' +
+                            'Host: ' + serverAddress.address + ':' + serverAddress.port + '\n' +
+                            '\n' +
+                            'HTTP/1.1 200 OK\n' +
+                            'Content-Type: application/json\n' +
+                            'Connection: keep-alive\n' +
+                            'Transfer-Encoding: chunked\n' +
+                            '\n' +
+                            '{\n' +
+                            '  foo: 123 // expected 123 when delayed a little bit to equal 456\n' +
+                            '}'
+                    );
+                });
             });
         });
     });
