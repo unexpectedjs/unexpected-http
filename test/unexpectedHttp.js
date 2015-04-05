@@ -1,34 +1,40 @@
 /*global describe, it, beforeEach*/
 var unexpected = require('unexpected'),
-    unexpectedHttp = require('../lib/unexpectedHttp'),
     http = require('http');
 
 describe('unexpected-http', function () {
-    var expect = unexpected.clone().installPlugin(unexpectedHttp);
+    var expect = unexpected.clone()
+        .installPlugin(require('../lib/unexpectedHttp'))
+        .installPlugin(require('unexpected-promise'))
+        .addAssertion('Error', 'to have message', function (expect, subject, value) {
+            this.errorMode = 'nested';
+            return expect(subject._isUnexpected ? subject.output.toString() : subject.message, 'to satisfy', value);
+        });
 
     expect.output.installPlugin(require('magicpen-prism'));
 
-    it('should do a basic request @integration', function (done) {
-        expect('GET http://www.gofish.dk/', 'to yield response', {
+    it('should do a basic request @integration', function () {
+        return expect('GET http://www.gofish.dk/', 'to yield response', {
             headers: {
                 'Content-Type': /text\/html/
             }
-        }, done);
-    });
-
-    it('should fail with a diff @integration', function (done) {
-        expect('GET http://www.gofish.dk/', 'to yield response', {
-            headers: {
-                'Content-Type': /text\/plain/
-            }
-        }, function (err) {
-            expect(err, 'to be an', Error);
-            expect(err.output.toString(), 'to match', /Content-Type: text\/html.*\/\/ should match \/text\\\/plain/);
-            done();
         });
     });
 
-    it('should expect an error if the response is given as an error @integration', function (done) {
+    it('should fail with a diff @integration', function () {
+        return expect(
+            expect('GET http://www.gofish.dk/', 'to yield response', {
+                headers: {
+                    'Content-Type': /text\/plain/
+                }
+            }),
+            'when rejected',
+            'to have message',
+                /Content-Type: text\/html.*\/\/ should match \/text\\\/plain/
+        );
+    });
+
+    it('should expect an error if the response is given as an error @integration', function () {
         var expectedError;
         if (process.version === 'v0.10.29') {
             expectedError = new Error('getaddrinfo EADDRINFO');
@@ -38,11 +44,10 @@ describe('unexpected-http', function () {
             expectedError.code = expectedError.errno = 'ENOTFOUND';
         }
         expectedError.syscall = 'getaddrinfo';
-        expect(
+        return expect(
             'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
             'to yield response',
-            expectedError,
-            done
+            expectedError
         );
     });
 
@@ -61,30 +66,31 @@ describe('unexpected-http', function () {
         });
 
         describe('with a JSON response', function () {
-            it('should succeed', function (done) {
+            it('should succeed', function () {
                 handleRequest = function (req, res, next) {
                     res.setHeader('Content-Type', 'application/json');
                     res.end('{"foo": 123}');
                 };
-                expect('GET ' + serverUrl, 'to yield response', {
+                return expect('GET ' + serverUrl, 'to yield response', {
                     body: {
                         foo: 123
                     }
-                }, done);
+                });
             });
 
-            it('should fail with a diff', function (done) {
+            it('should fail with a diff', function () {
                 handleRequest = function (req, res, next) {
                     res.setHeader('Content-Type', 'application/json');
                     res.end('{"foo": 123}');
                 };
-                expect('GET ' + serverUrl, 'to yield response', {
-                    body: {
-                        foo: 456
-                    }
-                }, function (err) {
-                    expect(err, 'to be an', Error);
-                    expect(err.output.toString(), 'to equal',
+                return expect(
+                    expect('GET ' + serverUrl, 'to yield response', {
+                        body: {
+                            foo: 456
+                        }
+                    }),
+                    'when rejected',
+                    'to have message',
                         "expected 'GET " + serverUrl + "' to yield response { body: { foo: 456 } }\n" +
                         '\n' +
                         'GET / HTTP/1.1\n' +
@@ -98,9 +104,7 @@ describe('unexpected-http', function () {
                         '{\n' +
                         '  foo: 123 // should equal 456\n' +
                         '}'
-                    );
-                    done();
-                });
+                );
             });
         });
     });
