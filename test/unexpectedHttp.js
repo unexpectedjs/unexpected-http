@@ -1,4 +1,4 @@
-/*global describe, it, beforeEach*/
+/*global describe, it, beforeEach, setTimeout*/
 var unexpected = require('unexpected'),
     http = require('http');
 
