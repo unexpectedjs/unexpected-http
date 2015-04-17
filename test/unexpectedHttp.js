@@ -15,6 +15,8 @@ describe('unexpected-http', function () {
             });
         });
 
+    expect.output.preferredWidth = 80;
+
     expect.output.installPlugin(require('magicpen-prism'));
 
     it('should do a basic request @integration', function () {
@@ -128,12 +130,8 @@ describe('unexpected-http', function () {
                         }),
                         'when rejected',
                         'to have message',
-                            "expected 'GET " + serverUrl + "' to yield response\n" +
-                            "{\n" +
-                            "  body: {\n" +
-                            "    foo: expect.it('when delayed a little bit', 'to equal', 456)\n" +
-                            "  }\n" +
-                            "}\n" +
+                            "expected 'GET " + serverUrl + "'\n" +
+                            "to yield response { body: { foo: expect.it('when delayed a little bit', 'to equal', 456) } }\n" +
                             '\n' +
                             'GET / HTTP/1.1\n' +
                             'Host: ' + serverAddress.address + ':' + serverAddress.port + '\n' +
