@@ -14,14 +14,14 @@ Works with node.js and in browsers via [browserify](http://browserify.org) (see 
 var expect = require('unexpected').clone().installPlugin(require('unexpected-http'));
 
 describe('google.com', function () {
-    it('should redirect to a country-specific version', function (done) {
-        expect('GET http://google.com/', 'to yield response', {
+    it('should redirect to a country-specific version', function () {
+        return expect('GET http://google.com/', 'to yield response', {
             statusCode: 302,
             headers: {
                 Location: /www\.google\.\w+/
             },
             body: /The document has moved/
-        }, done);
+        });
     });
 });
 ```
