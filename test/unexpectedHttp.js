@@ -40,6 +40,48 @@ describe('unexpected-http', function () {
         );
     });
 
+    describe('with the response property given as an error instance @integration', function () {
+        it('should expect an error', function () {
+            var expectedError;
+            if (process.version === 'v0.10.29') {
+                expectedError = new Error('getaddrinfo EADDRINFO');
+                expectedError.code = expectedError.errno = 'EADDRINFO';
+            } else {
+                expectedError = new Error('getaddrinfo ENOTFOUND');
+                expectedError.code = expectedError.errno = 'ENOTFOUND';
+            }
+            expectedError.syscall = 'getaddrinfo';
+            return expect(
+                'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
+                'to yield response',
+                expectedError
+            );
+        });
+
+        it('should fail with a diff if the request fails with an error that does not equal the expected error', function () {
+            var expectedErrorCode = process.version === 'v0.10.29' ? 'EADDRINFO' : 'ENOTFOUND';
+            return expect(
+                expect(
+                    'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
+                    'to yield response',
+                    new Error('foobar')
+                ),
+                'when rejected',
+                'to have message',
+                    "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/' to yield response Error({ message: 'foobar' })\n" +
+                    "\n" +
+                    "Error({\n" +
+                    "  message: 'getaddrinfo " + expectedErrorCode + "', // should equal 'foobar'\n" +
+                    "                                    // -getaddrinfo " + expectedErrorCode + "\n" +
+                    "                                    // +foobar\n" +
+                    "  code: '" + expectedErrorCode + "', // should be removed\n" +
+                    "  errno: '" + expectedErrorCode + "', // should be removed\n" +
+                    "  syscall: 'getaddrinfo' // should be removed\n" +
+                    "})"
+            );
+        });
+    });
+
     it('should expect an error if the response is given as an error @integration', function () {
         var expectedError;
         if (process.version === 'v0.10.29') {
