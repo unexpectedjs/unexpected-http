@@ -68,7 +68,7 @@ describe('unexpected-http', function () {
                 ),
                 'when rejected',
                 'to have message',
-                    "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/' to yield response Error({ message: 'foobar' })\n" +
+                    "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/' to yield response Error('foobar')\n" +
                     "\n" +
                     "Error({\n" +
                     "  message: 'getaddrinfo " + expectedErrorCode + "', // should equal 'foobar'\n" +
