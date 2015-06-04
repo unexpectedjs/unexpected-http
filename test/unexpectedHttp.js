@@ -142,6 +142,7 @@ describe('unexpected-http', function () {
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         'Host: ' + serverAddress.address + ':' + serverAddress.port + '\n' +
+                        'Content-Length: 0\n' +
                         '\n' +
                         'HTTP/1.1 200 OK\n' +
                         'Content-Type: application/json\n' +
