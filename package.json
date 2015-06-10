@@ -52,8 +52,8 @@
     "magicpen": "4.2.0",
     "magicpen-prism": "1.0.0",
     "mocha": "2.0.1",
-    "unexpected": "7.5.0",
+    "unexpected": "8.0.0",
     "unexpected-messy": "4.0.0",
-    "unexpected-promise": "1.1.2"
+    "unexpected-promise": "1.2.0"
   }
 }
