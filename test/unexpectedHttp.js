@@ -99,6 +99,18 @@ describe('unexpected-http', function () {
         );
     });
 
+    it('should reject with an actual UnexpectedError mentioning the error code when an unexpected socket error is encountered', function () {
+        return expect(
+            expect(
+                'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
+                'to yield response',
+                {}
+            ),
+            'when rejected',
+            'to have message', /getaddrinfo/
+        );
+    });
+
     describe('with a local test server', function () {
         var handleRequest,
             serverAddress,
