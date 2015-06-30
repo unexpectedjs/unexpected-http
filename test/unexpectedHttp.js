@@ -113,6 +113,34 @@ describe('unexpected-http', function () {
             serverUrl = 'http://' + serverAddress.address + ':' + serverAddress.port + '/';
         });
 
+        describe('within a timeout', function () {
+            beforeEach(function () {
+                handleRequest = function (req, res, next) {
+                    setTimeout(function () {
+                        res.setHeader('Content-Type', 'text/plain');
+                        res.end('foobar');
+                    }, 3);
+                };
+            });
+            it('should not fail if its within the timeframe', function () {
+                return expect({
+                    url: serverUrl,
+                    timeout: 20
+                }, 'to yield response', 'foobar');
+            });
+            it('should fail if it is not within the timeframe', function () {
+                return expect(
+                    expect({
+                        url: serverUrl,
+                        timeout: 1
+                    }, 'to yield response', 'foobar'),
+                    'when rejected', 'to have message',
+                        "expected { url: 'http://" + serverAddress.address + ":" + serverAddress.port + "/', timeout: 1 } to yield response 'foobar'\n" +
+                        "  expected a response within 1 ms"
+                );
+            });
+        });
+
         describe('with a JSON response', function () {
             beforeEach(function () {
                 handleRequest = function (req, res, next) {
