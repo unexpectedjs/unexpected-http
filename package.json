@@ -39,8 +39,8 @@
     "underscore": "1.7.0"
   },
   "peerDependencies": {
-    "unexpected": "8",
-    "unexpected-messy": "^4.1.0",
+    "unexpected": "8 || 9",
+    "unexpected-messy": "^4.2.0",
     "messy": "^6.3.1"
   },
   "devDependencies": {
@@ -53,6 +53,6 @@
     "magicpen-prism": "2.1.2",
     "mocha": "2.0.1",
     "unexpected": "8.5.0",
-    "unexpected-messy": "4.1.0"
+    "unexpected-messy": "4.2.0"
   }
 }
