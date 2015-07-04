@@ -52,7 +52,7 @@
     "magicpen": "4.8.0",
     "magicpen-prism": "2.1.2",
     "mocha": "2.0.1",
-    "unexpected": "8.5.0",
+    "unexpected": "9.0.0",
     "unexpected-messy": "4.2.0"
   }
 }
