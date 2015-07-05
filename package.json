@@ -41,7 +41,7 @@
   "peerDependencies": {
     "unexpected": "8 || 9",
     "unexpected-messy": "^4.2.0",
-    "messy": "^6.3.1"
+    "messy": "^6.4.0"
   },
   "devDependencies": {
     "browserify": "7.0.0",
