@@ -22,6 +22,14 @@
                         }
                     });
                 });
+
+                it('should DTRT with an image', function () {
+                    return expect('GET /node_modules/mocha/images/error.png', 'to yield response', {
+                        headers: {
+                           'Content-Type': /^text\/htel/
+                        }
+                    });
+                });
             });
 
             if (window.mochaPhantomJS) {
