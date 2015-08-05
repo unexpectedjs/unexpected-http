@@ -36,14 +36,12 @@
   "homepage": "https://github.com/unexpectedjs/unexpected-http",
   "dependencies": {
     "passerror": "1.1.0",
-    "underscore": "1.7.0",
-    "unexpected-messy": "^4.7.0",
-    "messy": "^6.6.1"
+    "underscore": "1.7.0"
   },
   "peerDependencies": {
     "unexpected": "^9.2.0",
-    "unexpected-messy": "^4.7.0",
-    "messy": "^6.6.1"
+    "unexpected-messy": "^4.5.0",
+    "messy": "^6.4.0"
   },
   "devDependencies": {
     "browserify": "7.0.0",
@@ -53,6 +51,7 @@
     "jshint": "2.5.10",
     "magicpen-prism": "2.2.0",
     "mocha": "2.0.1",
-    "unexpected": "9.2.0"
+    "unexpected": "9.2.0",
+    "unexpected-messy": "4.5.0"
   }
 }
