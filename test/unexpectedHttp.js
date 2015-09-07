@@ -67,7 +67,8 @@ describe('unexpected-http', function () {
                 ),
                 'when rejected',
                 'to have message',
-                    "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/' to yield response Error('foobar')\n" +
+                    "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/'\n" +
+                    "to yield response Error('foobar')\n" +
                     "\n" +
                     "Error({\n" +
                     "  message: 'getaddrinfo " + expectedErrorCode + "', // should equal 'foobar'\n" +
@@ -225,7 +226,7 @@ describe('unexpected-http', function () {
                             'Transfer-Encoding: chunked\n' +
                             '\n' +
                             '{\n' +
-                            '  foo: 123 // expected 123 when delayed a little bit to equal 456\n' +
+                            '  foo: 123 // expected: when delayed a little bit to equal 456\n' +
                             '}'
                     );
                 });
