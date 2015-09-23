@@ -1,6 +1,7 @@
 /*global describe, it, beforeEach, setTimeout*/
 var unexpected = require('unexpected'),
-    http = require('http');
+    http = require('http'),
+    semver = require('semver');
 
 describe('unexpected-http', function () {
     var expect = unexpected.clone()
@@ -42,23 +43,34 @@ describe('unexpected-http', function () {
     describe('with the response property given as an error instance @integration', function () {
         it('should expect an error', function () {
             var expectedError;
-            if (process.version === 'v0.10.29') {
+            // I do not know the exact version where this change was introduced. Hopefully this is enough to get
+            // it working on Travis (0.10.36 presently):
+            var nodeJsVersion = process.version.replace(/^v/, '');
+            if (nodeJsVersion === '0.10.29') {
                 expectedError = new Error('getaddrinfo EADDRINFO');
                 expectedError.code = expectedError.errno = 'EADDRINFO';
+            } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
+                expectedError = new Error('getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com');
+                if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
+                    expectedError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
+                    expectedError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+                    expectedError.port = 80;
+                }
+                expectedError.code = expectedError.errno = 'ENOTFOUND';
+                expectedError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
             } else {
                 expectedError = new Error('getaddrinfo ENOTFOUND');
                 expectedError.code = expectedError.errno = 'ENOTFOUND';
             }
             expectedError.syscall = 'getaddrinfo';
             return expect(
-                'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
+                'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
                 'to yield response',
                 expectedError
             );
         });
 
         it('should fail with a diff if the request fails with an error that does not equal the expected error', function () {
-            var expectedErrorCode = process.version === 'v0.10.29' ? 'EADDRINFO' : 'ENOTFOUND';
             return expect(
                 expect(
                     'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
@@ -66,34 +78,43 @@ describe('unexpected-http', function () {
                     new Error('foobar')
                 ),
                 'when rejected',
-                'to have message',
-                    "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/'\n" +
-                    "to yield response Error('foobar')\n" +
-                    "\n" +
-                    "Error({\n" +
-                    "  message: 'getaddrinfo " + expectedErrorCode + "', // should equal 'foobar'\n" +
-                    "                                    // -getaddrinfo " + expectedErrorCode + "\n" +
-                    "                                    // +foobar\n" +
-                    "  code: '" + expectedErrorCode + "', // should be removed\n" +
-                    "  errno: '" + expectedErrorCode + "', // should be removed\n" +
-                    "  syscall: 'getaddrinfo' // should be removed\n" +
-                    "})"
+                'to have message', function (message) {
+                    // The error varies a lot depending on the node.js version:
+                    expect(message.replace(/Error\(\{[\s\S]*\}\)$/, 'Error(...)'), 'to equal',
+                        "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/'\n" +
+                        "to yield response Error('foobar')\n" +
+                        "\n" +
+                        "Error(...)"
+                    );
+                }
             );
         });
     });
 
     it('should expect an error if the response is given as an error @integration', function () {
         var expectedError;
-        if (process.version === 'v0.10.29') {
+        // I do not know the exact version where this change was introduced. Hopefully this is enough to get
+        // it working on Travis (0.10.36 presently):
+        var nodeJsVersion = process.version.replace(/^v/, '');
+        if (nodeJsVersion === '0.10.29') {
             expectedError = new Error('getaddrinfo EADDRINFO');
             expectedError.code = expectedError.errno = 'EADDRINFO';
+        } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
+            expectedError = new Error('getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com');
+            if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
+                expectedError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
+                expectedError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+                expectedError.port = 80;
+            }
+            expectedError.code = expectedError.errno = 'ENOTFOUND';
+            expectedError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
         } else {
             expectedError = new Error('getaddrinfo ENOTFOUND');
             expectedError.code = expectedError.errno = 'ENOTFOUND';
         }
         expectedError.syscall = 'getaddrinfo';
         return expect(
-            'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
+            'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
             'to yield response',
             expectedError
         );
@@ -113,6 +134,7 @@ describe('unexpected-http', function () {
 
     describe('with a local test server', function () {
         var handleRequest,
+            serverHostname,
             serverAddress,
             serverUrl;
         beforeEach(function () {
@@ -122,7 +144,8 @@ describe('unexpected-http', function () {
                 handleRequest(req, res, next);
             }).listen(0);
             serverAddress = server.address();
-            serverUrl = 'http://' + serverAddress.address + ':' + serverAddress.port + '/';
+            serverHostname = serverAddress.address === '::' ? 'localhost' : serverAddress.address;
+            serverUrl = 'http://' + serverHostname + ':' + serverAddress.port + '/';
         });
 
         describe('within a timeout', function () {
@@ -147,7 +170,7 @@ describe('unexpected-http', function () {
                         timeout: 1
                     }, 'to yield response', 'foobar'),
                     'when rejected', 'to have message',
-                        "expected { url: 'http://" + serverAddress.address + ":" + serverAddress.port + "/', timeout: 1 } to yield response 'foobar'\n" +
+                        "expected { url: 'http://" + serverHostname + ":" + serverAddress.port + "/', timeout: 1 } to yield response 'foobar'\n" +
                         "  expected a response within 1 ms"
                 );
             });
@@ -177,21 +200,21 @@ describe('unexpected-http', function () {
                         }
                     }),
                     'when rejected',
-                    'to have message',
-                        "expected 'GET " + serverUrl + "' to yield response { body: { foo: 456 } }\n" +
-                        '\n' +
-                        'GET / HTTP/1.1\n' +
-                        'Host: ' + serverAddress.address + ':' + serverAddress.port + '\n' +
-                        'Content-Length: 0\n' +
-                        '\n' +
-                        'HTTP/1.1 200 OK\n' +
-                        'Content-Type: application/json\n' +
-                        'Connection: keep-alive\n' +
-                        'Transfer-Encoding: chunked\n' +
-                        '\n' +
-                        '{\n' +
-                        '  foo: 123 // should equal 456\n' +
-                        '}'
+                    'to have message', function (message) {
+                        expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, ''), 'to equal',
+                            "expected 'GET " + serverUrl + "' to yield response { body: { foo: 456 } }\n" +
+                            '\n' +
+                            'GET / HTTP/1.1\n' +
+                            'Host: ' + serverHostname + ':' + serverAddress.port + '\n' +
+                            '\n' +
+                            'HTTP/1.1 200 OK\n' +
+                            'Content-Type: application/json\n' +
+                            '\n' +
+                            '{\n' +
+                            '  foo: 123 // should equal 456\n' +
+                            '}'
+                        );
+                    }
                 );
             });
 
@@ -212,22 +235,22 @@ describe('unexpected-http', function () {
                             }
                         }),
                         'when rejected',
-                        'to have message',
-                            "expected 'GET " + serverUrl + "'\n" +
-                            "to yield response { body: { foo: expect.it('when delayed a little bit', 'to equal', 456) } }\n" +
-                            '\n' +
-                            'GET / HTTP/1.1\n' +
-                            'Host: ' + serverAddress.address + ':' + serverAddress.port + '\n' +
-                            'Content-Length: 0\n' +
-                            '\n' +
-                            'HTTP/1.1 200 OK\n' +
-                            'Content-Type: application/json\n' +
-                            'Connection: keep-alive\n' +
-                            'Transfer-Encoding: chunked\n' +
-                            '\n' +
-                            '{\n' +
-                            '  foo: 123 // expected: when delayed a little bit to equal 456\n' +
-                            '}'
+                        'to have message', function (message) {
+                            expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, ''), 'to equal',
+                                "expected 'GET " + serverUrl + "'\n" +
+                                "to yield response { body: { foo: expect.it('when delayed a little bit', 'to equal', 456) } }\n" +
+                                '\n' +
+                                'GET / HTTP/1.1\n' +
+                                'Host: ' + serverHostname + ':' + serverAddress.port + '\n' +
+                                '\n' +
+                                'HTTP/1.1 200 OK\n' +
+                                'Content-Type: application/json\n' +
+                                '\n' +
+                                '{\n' +
+                                '  foo: 123 // expected: when delayed a little bit to equal 456\n' +
+                                '}'
+                            );
+                        }
                     );
                 });
             });
