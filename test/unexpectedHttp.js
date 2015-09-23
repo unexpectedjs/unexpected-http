@@ -254,6 +254,35 @@ describe('unexpected-http', function () {
                     );
                 });
             });
+
+            it('should send the correct Authorization header when specified in the headers object', function () {
+                var authorizationHeader;
+                handleRequest = function (req, res, next) {
+                    authorizationHeader = req.headers.authorization;
+                    res.end();
+                };
+                return expect({
+                    url: 'GET ' + serverUrl,
+                    headers: {
+                        Authorization: 'foobar'
+                    }
+                }, 'to yield response', 200).then(function () {
+                    expect(authorizationHeader, 'to equal', 'foobar');
+                });
+            });
+
+            it('should send the correct Authorization header when the credentials are specified in the url', function () {
+                var authorizationHeader;
+                handleRequest = function (req, res, next) {
+                    authorizationHeader = req.headers.authorization;
+                    res.end();
+                };
+                return expect({
+                    url: 'GET http://foobar:quux@' + serverHostname + ':' + serverAddress.port + '/'
+                }, 'to yield response', 200).then(function () {
+                    expect(authorizationHeader, 'to equal', 'Basic Zm9vYmFyOnF1dXg=');
+                });
+            });
         });
     });
 });
