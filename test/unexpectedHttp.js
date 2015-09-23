@@ -201,7 +201,7 @@ describe('unexpected-http', function () {
                     }),
                     'when rejected',
                     'to have message', function (message) {
-                        expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, ''), 'to equal',
+                        expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, '').replace(/\n\s*Transfer-Encoding:.*$|\s*Transfer-Encoding:.*\n/mg, ''), 'to equal',
                             "expected 'GET " + serverUrl + "' to yield response { body: { foo: 456 } }\n" +
                             '\n' +
                             'GET / HTTP/1.1\n' +
@@ -236,7 +236,7 @@ describe('unexpected-http', function () {
                         }),
                         'when rejected',
                         'to have message', function (message) {
-                            expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, ''), 'to equal',
+                            expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, '').replace(/\n\s*Transfer-Encoding:.*$|\s*Transfer-Encoding:.*\n/mg, ''), 'to equal',
                                 "expected 'GET " + serverUrl + "'\n" +
                                 "to yield response { body: { foo: expect.it('when delayed a little bit', 'to equal', 456) } }\n" +
                                 '\n' +
