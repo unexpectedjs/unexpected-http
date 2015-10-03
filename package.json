@@ -54,6 +54,6 @@
     "magicpen-prism": "2.2.0",
     "mocha": "2.0.1",
     "semver": "5.0.3",
-    "unexpected": "9.9.0"
+    "unexpected": "9.16.0"
   }
 }
