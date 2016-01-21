@@ -40,33 +40,44 @@ describe('unexpected-http', function () {
         );
     });
 
-    describe('with the response property given as an error instance @integration', function () {
-        it('should expect an error', function () {
-            var expectedError;
-            // I do not know the exact version where this change was introduced. Hopefully this is enough to get
-            // it working on Travis (0.10.36 presently):
-            var nodeJsVersion = process.version.replace(/^v/, '');
-            if (nodeJsVersion === '0.10.29') {
-                expectedError = new Error('getaddrinfo EADDRINFO');
-                expectedError.code = expectedError.errno = 'EADDRINFO';
-            } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
-                expectedError = new Error('getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com');
-                if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
-                    expectedError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
-                    expectedError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-                    expectedError.port = 80;
-                }
-                expectedError.code = expectedError.errno = 'ENOTFOUND';
-                expectedError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-            } else {
-                expectedError = new Error('getaddrinfo ENOTFOUND');
-                expectedError.code = expectedError.errno = 'ENOTFOUND';
-            }
-            expectedError.syscall = 'getaddrinfo';
+    var getaddrinfoError;
+    // I do not know the exact version where this change was introduced. Hopefully this is enough to get
+    // it working on Travis (0.10.36 presently):
+    var nodeJsVersion = process.version.replace(/^v/, '');
+    if (nodeJsVersion === '0.10.29') {
+        getaddrinfoError = new Error('getaddrinfo EADDRINFO');
+        getaddrinfoError.code = getaddrinfoError.errno = 'EADDRINFO';
+    } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
+        getaddrinfoError = new Error('getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com');
+        if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
+            getaddrinfoError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
+            getaddrinfoError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+            getaddrinfoError.port = 80;
+        }
+        getaddrinfoError.code = getaddrinfoError.errno = 'ENOTFOUND';
+        getaddrinfoError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+    } else {
+        getaddrinfoError = new Error('getaddrinfo ENOTFOUND');
+        getaddrinfoError.code = getaddrinfoError.errno = 'ENOTFOUND';
+    }
+    getaddrinfoError.syscall = 'getaddrinfo';
+
+    describe('with the expected response object containing an error property @integration', function () {
+        it('should expect an error #2', function () {
             return expect(
                 'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
                 'to yield response',
-                expectedError
+                { error: getaddrinfoError }
+            );
+        });
+    });
+
+    describe('with the response property given as an error instance @integration', function () {
+        it('should expect an error', function () {
+            return expect(
+                'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
+                'to yield response',
+                getaddrinfoError
             );
         });
 
