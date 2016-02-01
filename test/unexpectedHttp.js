@@ -20,7 +20,7 @@ describe('unexpected-http', function () {
     expect.output.installPlugin(require('magicpen-prism'));
 
     it('should do a basic request @integration', function () {
-        return expect('GET http://www.gofish.dk/', 'to yield response', {
+        return expect('GET http://www.gofish.dk/', 'to yield response satisfying', {
             headers: {
                 'Content-Type': /text\/html/
             }
@@ -29,7 +29,7 @@ describe('unexpected-http', function () {
 
     it('should fail with a diff @integration', function () {
         return expect(
-            expect('GET http://www.gofish.dk/', 'to yield response', {
+            expect('GET http://www.gofish.dk/', 'to yield response satisfying', {
                 headers: {
                     'Content-Type': /text\/plain/
                 }
@@ -66,7 +66,7 @@ describe('unexpected-http', function () {
         it('should expect an error #2', function () {
             return expect(
                 'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
-                'to yield response',
+                'to yield response satisfying',
                 { error: getaddrinfoError }
             );
         });
@@ -76,7 +76,7 @@ describe('unexpected-http', function () {
         it('should expect an error', function () {
             return expect(
                 'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
-                'to yield response',
+                'to yield response satisfying',
                 getaddrinfoError
             );
         });
@@ -85,7 +85,7 @@ describe('unexpected-http', function () {
             return expect(
                 expect(
                     'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
-                    'to yield response',
+                    'to yield response satisfying',
                     new Error('foobar')
                 ),
                 'when rejected',
@@ -93,7 +93,7 @@ describe('unexpected-http', function () {
                     // The error varies a lot depending on the node.js version:
                     expect(message.replace(/Error\(\{[\s\S]*\}\)$/, 'Error(...)'), 'to equal',
                         "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/'\n" +
-                        "to yield response Error('foobar')\n" +
+                        "to yield response satisfying Error('foobar')\n" +
                         "\n" +
                         "Error(...)"
                     );
@@ -126,7 +126,7 @@ describe('unexpected-http', function () {
         expectedError.syscall = 'getaddrinfo';
         return expect(
             'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
-            'to yield response',
+            'to yield response satisfying',
             expectedError
         );
     });
@@ -135,7 +135,7 @@ describe('unexpected-http', function () {
         return expect(
             expect(
                 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/',
-                'to yield response',
+                'to yield response satisfying',
                 {}
             ),
             'when rejected',
@@ -172,16 +172,17 @@ describe('unexpected-http', function () {
                 return expect({
                     url: serverUrl,
                     timeout: 20
-                }, 'to yield response', 'foobar');
+                }, 'to yield response satisfying', 'foobar');
             });
             it('should fail if it is not within the timeframe', function () {
                 return expect(
                     expect({
                         url: serverUrl,
                         timeout: 1
-                    }, 'to yield response', 'foobar'),
+                    }, 'to yield response satisfying', 'foobar'),
                     'when rejected', 'to have message',
-                        "expected { url: 'http://" + serverHostname + ":" + serverAddress.port + "/', timeout: 1 } to yield response 'foobar'\n" +
+                        "expected { url: 'http://" + serverHostname + ":" + serverAddress.port + "/', timeout: 1 }\n" +
+                        "to yield response satisfying 'foobar'\n" +
                         "  expected a response within 1 ms"
                 );
             });
@@ -196,7 +197,7 @@ describe('unexpected-http', function () {
             });
 
             it('should succeed', function () {
-                return expect('GET ' + serverUrl, 'to yield response', {
+                return expect('GET ' + serverUrl, 'to yield response satisfying', {
                     body: {
                         foo: 123
                     }
@@ -205,7 +206,7 @@ describe('unexpected-http', function () {
 
             it('should fail with a diff', function () {
                 return expect(
-                    expect('GET ' + serverUrl, 'to yield response', {
+                    expect('GET ' + serverUrl, 'to yield response satisfying', {
                         body: {
                             foo: 456
                         }
@@ -213,7 +214,8 @@ describe('unexpected-http', function () {
                     'when rejected',
                     'to have message', function (message) {
                         expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, '').replace(/\n\s*Transfer-Encoding:.*$|\s*Transfer-Encoding:.*\n/mg, ''), 'to equal',
-                            "expected 'GET " + serverUrl + "' to yield response { body: { foo: 456 } }\n" +
+                            "expected 'GET " + serverUrl + "'\n" +
+                            "to yield response satisfying { body: { foo: 456 } }\n" +
                             '\n' +
                             'GET / HTTP/1.1\n' +
                             'Host: ' + serverHostname + ':' + serverAddress.port + '\n' +
@@ -231,7 +233,7 @@ describe('unexpected-http', function () {
 
             describe('with an expectation that requires async work', function () {
                 it('should succeed', function () {
-                    return expect('GET ' + serverUrl, 'to yield response', {
+                    return expect('GET ' + serverUrl, 'to yield response satisfying', {
                         body: {
                             foo: expect.it('when delayed a little bit', 'to equal', 123)
                         }
@@ -240,7 +242,7 @@ describe('unexpected-http', function () {
 
                 it('should fail with a diff', function () {
                     return expect(
-                        expect('GET ' + serverUrl, 'to yield response', {
+                        expect('GET ' + serverUrl, 'to yield response satisfying', {
                             body: {
                                 foo: expect.it('when delayed a little bit', 'to equal', 456)
                             }
@@ -249,7 +251,7 @@ describe('unexpected-http', function () {
                         'to have message', function (message) {
                             expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, '').replace(/\n\s*Transfer-Encoding:.*$|\s*Transfer-Encoding:.*\n/mg, ''), 'to equal',
                                 "expected 'GET " + serverUrl + "'\n" +
-                                "to yield response { body: { foo: expect.it('when delayed a little bit', 'to equal', 456) } }\n" +
+                                "to yield response satisfying { body: { foo: expect.it('when delayed a little bit', 'to equal', 456) } }\n" +
                                 '\n' +
                                 'GET / HTTP/1.1\n' +
                                 'Host: ' + serverHostname + ':' + serverAddress.port + '\n' +
@@ -277,7 +279,7 @@ describe('unexpected-http', function () {
                     headers: {
                         Authorization: 'foobar'
                     }
-                }, 'to yield response', 200).then(function () {
+                }, 'to yield response satisfying', 200).then(function () {
                     expect(authorizationHeader, 'to equal', 'foobar');
                 });
             });
@@ -290,7 +292,7 @@ describe('unexpected-http', function () {
                 };
                 return expect({
                     url: 'GET http://foobar:quux@' + serverHostname + ':' + serverAddress.port + '/'
-                }, 'to yield response', 200).then(function () {
+                }, 'to yield response satisfying', 200).then(function () {
                     expect(authorizationHeader, 'to equal', 'Basic Zm9vYmFyOnF1dXg=');
                 });
             });
