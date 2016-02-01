@@ -5,7 +5,7 @@ var unexpected = require('unexpected'),
 
 describe('unexpected-http', function () {
     var expect = unexpected.clone()
-        .installPlugin(require('../lib/unexpectedHttp'))
+        .use(require('../lib/unexpectedHttp'))
         .addAssertion('when delayed a little bit', function (expect, subject) {
             var that = this;
             return expect.promise(function (run) {
