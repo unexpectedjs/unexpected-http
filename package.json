@@ -41,7 +41,7 @@
     "messy": "^6.6.1"
   },
   "peerDependencies": {
-    "unexpected": "^10.0.0",
+    "unexpected": "^10.10.8",
     "unexpected-messy": "^6.0.0",
     "messy": "^6.6.1"
   },
@@ -54,6 +54,6 @@
     "magicpen-prism": "2.2.0",
     "mocha": "2.0.1",
     "semver": "5.0.3",
-    "unexpected": "10.0.0"
+    "unexpected": "10.10.8"
   }
 }
