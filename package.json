@@ -1,6 +1,6 @@
 {
   "name": "unexpected-http",
-  "version": "5.3.0",
+  "version": "5.3.1",
   "description": "Unexpected plugin for testing http servers",
   "main": "lib/unexpectedHttp.js",
   "directories": {
