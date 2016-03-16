@@ -37,12 +37,12 @@
   "dependencies": {
     "passerror": "1.1.0",
     "underscore": "1.7.0",
-    "unexpected-messy": "^5.0.0",
+    "unexpected-messy": "^6.0.0",
     "messy": "^6.6.1"
   },
   "peerDependencies": {
     "unexpected": "^10.0.0",
-    "unexpected-messy": "^5.0.0",
+    "unexpected-messy": "^6.0.0",
     "messy": "^6.6.1"
   },
   "devDependencies": {
