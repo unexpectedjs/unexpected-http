@@ -310,10 +310,10 @@ describe('unexpected-http', function () {
                 var responseBodyStream = new stream.Readable();
                 responseBodyStream._read = function (num, cb) {
                     responseBodyStream._read = function () {};
-                    setImmediate(function () {
+                    setTimeout(function () {
                         responseBodyStream.push('foobar');
                         responseBodyStream.push(null);
-                    });
+                    }, 0);
                 };
 
                 return expect({
@@ -327,9 +327,9 @@ describe('unexpected-http', function () {
             it('should fail if there was an error on the stream', function () {
                 var erroringStream = new stream.Readable();
                 erroringStream._read = function (num, cb) {
-                    setImmediate(function () {
+                    setTimeout(function () {
                         erroringStream.emit('error', new Error('Fake error'));
-                    });
+                    }, 0);
                 };
 
                 return expect({
