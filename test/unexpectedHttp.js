@@ -323,6 +323,20 @@ describe('unexpected-http', function () {
                     body: new Buffer('foobar', 'utf-8')
                 });
             });
+
+            it('should fail if there was an error on the stream', function () {
+                var erroringStream = new stream.Readable();
+                erroringStream._read = function (num, cb) {
+                    setImmediate(function () {
+                        erroringStream.emit('error', new Error('Fake error'));
+                    });
+                };
+
+                return expect({
+                    url: 'PUT ' + serverUrl,
+                    body: erroringStream
+                }, 'to yield response satisfying', new Error('Fake error'));
+            });
         });
     });
 });
