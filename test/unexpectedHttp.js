@@ -1,7 +1,8 @@
 /*global describe, it, beforeEach, setTimeout*/
 var unexpected = require('unexpected'),
     http = require('http'),
-    semver = require('semver');
+    semver = require('semver'),
+    stream = require('stream');
 
 describe('unexpected-http', function () {
     var expect = unexpected.clone()
@@ -295,6 +296,46 @@ describe('unexpected-http', function () {
                 }, 'to yield response satisfying', 200).then(function () {
                     expect(authorizationHeader, 'to equal', 'Basic Zm9vYmFyOnF1dXg=');
                 });
+            });
+        });
+
+        describe('with a request body stream', function () {
+            beforeEach(function () {
+                handleRequest = function (req, res, next) {
+                    req.pipe(res);
+                };
+            });
+
+            it('should succeed', function () {
+                var responseBodyStream = new stream.Readable();
+                responseBodyStream._read = function (num, cb) {
+                    responseBodyStream._read = function () {};
+                    setTimeout(function () {
+                        responseBodyStream.push('foobar');
+                        responseBodyStream.push(null);
+                    }, 0);
+                };
+
+                return expect({
+                    url: 'PUT ' + serverUrl,
+                    body: responseBodyStream
+                }, 'to yield response satisfying', {
+                    body: new Buffer('foobar', 'utf-8')
+                });
+            });
+
+            it('should fail if there was an error on the stream', function () {
+                var erroringStream = new stream.Readable();
+                erroringStream._read = function (num, cb) {
+                    setTimeout(function () {
+                        erroringStream.emit('error', new Error('Fake error'));
+                    }, 0);
+                };
+
+                return expect({
+                    url: 'PUT ' + serverUrl,
+                    body: erroringStream
+                }, 'to yield response satisfying', new Error('Fake error'));
             });
         });
     });
