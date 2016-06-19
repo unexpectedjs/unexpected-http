@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha && npm run lint",
+    "test": "mocha --compilers md:unexpected-markdown test/*.js `find documentation -name '*.md'` && npm run lint",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true)",
     "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot --compilers md:unexpected-markdown test/*.js `find documentation -name '*.md'` && echo google-chrome coverage/lcov-report/index.html",
     "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedHttp -s unexpectedHttp > unexpectedHttp.min.js",
