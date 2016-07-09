@@ -8,10 +8,13 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha && npm run lint",
+    "test": "mocha --compilers md:unexpected-markdown test/*.js `find documentation -name '*.md'` && npm run lint",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true)",
-    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot && echo google-chrome coverage/lcov-report/index.html",
-    "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedHttp -s unexpectedHttp > unexpectedHttp.min.js"
+    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot --compilers md:unexpected-markdown test/*.js `find documentation -name '*.md'` && echo google-chrome coverage/lcov-report/index.html",
+    "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedHttp -s unexpectedHttp > unexpectedHttp.min.js",
+    "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
+    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples",
+    "deploy-site": "deploy-site.sh"
   },
   "repository": {
     "type": "git",
@@ -52,9 +55,11 @@
     "eslint": "2.7.0",
     "eslint-config-onelint": "1.0.2",
     "istanbul": "0.3.4",
-    "magicpen-prism": "2.2.0",
+    "magicpen-prism": "2.2.1",
     "mocha": "2.0.1",
     "semver": "5.0.3",
-    "unexpected": "10.10.8"
+    "unexpected": "10.10.8",
+    "unexpected-documentation-site-generator": "^4.0.0",
+    "unexpected-markdown": "^1.4.0"
   }
 }
