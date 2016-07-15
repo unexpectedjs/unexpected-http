@@ -13,6 +13,40 @@ specified which are issued and the responses checked against expectations.
 
 Works with node.js and in browsers via [browserify](http://browserify.org) (see [example](../tests/index.html)).
 
+Request Syntax
+--------------
+
+Unexpected-HTTP has a declarative syntax for specifying requests to peform.
+
+### String
+
+A single string of the form "<method> <url>" that will be parsed and the appropriate
+request issued - see [string assertion](./assertions/string/to-yield-response/).
+
+```js
+describe('google.com', function () {
+    it('should respond with a redirect status code', function () {
+        return expect('GET http://google.com/', 'to yield response', 302);
+    });
+});
+```
+
+### Object
+
+An object containing the request properties to be executed - see
+[object assertion](./assertions/object/to-yield-response/).
+
+```js
+describe('google.com', function () {
+    it('should respond appropriately disallowing POST', function () {
+        return expect({
+            url: 'http://google.com/',
+            method: 'POST'
+        }, 'to yield response', 405);
+    });
+});
+```
+
 License
 -------
 
