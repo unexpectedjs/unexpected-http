@@ -24,9 +24,9 @@ A single string of the form "<method> <url>" that will be parsed and the appropr
 request issued - see [string assertion](./assertions/string/to-yield-response/).
 
 ```js
-describe('google.com', function () {
-    it('should respond with a redirect status code', function () {
-        return expect('GET http://google.com/', 'to yield response', 302);
+describe('unexpected.js.org', function () {
+    it('should respond', function () {
+        return expect('GET http://unexpected.js.org/', 'to yield response', 200);
     });
 });
 ```

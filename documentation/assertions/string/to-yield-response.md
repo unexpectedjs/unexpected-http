@@ -2,14 +2,14 @@ Executes a request defined as a compact string asserts the response received
 matches what was expected.
 
 ```js
-describe('google.com', function () {
-    it('should redirect to a country-specific version', function () {
-        return expect('GET http://google.com/', 'to yield response', {
-            statusCode: 302,
+describe('unexpected.js.org', function () {
+    it('should reply with HTML', function () {
+        return expect('GET http://unexpected.js.org/', 'to yield response', {
+            statusCode: 200,
             headers: {
-                Location: /www\.google\.\w+/
+                'Content-Type': /text\/html/
             },
-            body: /The document has moved/
+            body: /<html>/
         });
     });
 });
