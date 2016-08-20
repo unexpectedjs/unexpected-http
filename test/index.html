@@ -14,19 +14,19 @@
         <script>
             var expect = weknowhow.expect.installPlugin(unexpectedHttp).installPlugin(magicPenPrism);
 
-            describe('Whatever server is handing this out', function () {
-                it('should DTRT', function () {
-                    return expect('GET ' + location.href, 'to yield response', {
+            describe('unexpectedHttp in the browser', function () {
+                it('should assert a content type for HTML', function () {
+                    return expect('GET /test/index.html', 'to yield response', {
                         headers: {
-                           'Content-Type': /^text\/htel/
+                            'Content-Type': /^text\/html/
                         }
                     });
                 });
 
-                it('should DTRT with an image', function () {
+                it('should assert a content type for an image', function () {
                     return expect('GET /node_modules/mocha/images/error.png', 'to yield response', {
                         headers: {
-                           'Content-Type': /^text\/htel/
+                            'Content-Type': /^image\/png/
                         }
                     });
                 });
