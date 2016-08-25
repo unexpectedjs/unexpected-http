@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../../static/bug-icon-black.ico">
     <title>string - to yield response</title>
 </head>
-<body class="sidebar-hidden has-sidebar">
+<body class="sidebar-hidden has-sidebar"> 
     <header>
         <div class="logo-icon"></div>
         <nav>
@@ -71,14 +71,14 @@
             <p>Executes a request defined as a compact string asserts the response received
 matches what was expected.</p>
 <div class="code lang-javascript">
-  <div><span style="color: #000000">describe</span><span style="color: #000000">(</span><span style="color: #df5000">'google.com'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">it</span><span style="color: #000000">(</span><span style="color: #df5000">'should&nbsp;redirect&nbsp;to&nbsp;a&nbsp;country-specific&nbsp;version'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #a71d5d">return</span>&nbsp;<span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #df5000">'GET&nbsp;http://google.com/'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'to&nbsp;yield&nbsp;response'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusCode<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">302</span><span style="color: #000000">,</span></div>
+  <div><span style="color: #000000">describe</span><span style="color: #000000">(</span><span style="color: #df5000">'unexpected.js.org'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">it</span><span style="color: #000000">(</span><span style="color: #df5000">'should&nbsp;reply&nbsp;with&nbsp;HTML'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #a71d5d">return</span>&nbsp;<span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #df5000">'GET&nbsp;http://unexpected.js.org/'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'to&nbsp;yield&nbsp;response'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusCode<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">200</span><span style="color: #000000">,</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location<span style="color: #000000">:</span>&nbsp;<span style="color: #183691">/www\.google\.\w+/</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'Content-Type'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #183691">/text\/html/</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #183691">/The&nbsp;document&nbsp;has&nbsp;moved/</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #183691">/&lt;html&gt;/</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">});</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">});</span></div>
   <div><span style="color: #000000">});</span></div>
