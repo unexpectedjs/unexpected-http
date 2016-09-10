@@ -1,10 +1,10 @@
 [
   {
-    "label": "to yield response (string)",
-    "url": "/assertions/string/to-yield-response/"
-  },
-  {
     "label": "to yield response (object)",
     "url": "/assertions/object/to-yield-response/"
+  },
+  {
+    "label": "to yield response (string)",
+    "url": "/assertions/string/to-yield-response/"
   }
 ]
