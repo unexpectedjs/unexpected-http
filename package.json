@@ -42,7 +42,7 @@
   "dependencies": {
     "passerror": "1.1.0",
     "underscore": "1.7.0",
-    "unexpected-messy": "^6.0.0",
+    "unexpected-messy": "unexpectedjs/unexpected-messy#ee9720dd98d30ca59f72ec93cd25bb5355ec654f",
     "messy": "^6.6.1"
   },
   "peerDependencies": {
