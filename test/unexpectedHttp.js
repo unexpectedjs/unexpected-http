@@ -173,7 +173,7 @@ describe('unexpected-http', function () {
                 return expect({
                     url: serverUrl,
                     timeout: 20
-                }, 'to yield HTTP response satisfying', 'foobar');
+                }, 'to yield HTTP response satisfying', { body: 'foobar' });
             });
             it('should fail if it is not within the timeframe', function () {
                 return expect(
