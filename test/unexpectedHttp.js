@@ -147,9 +147,9 @@ describe('unexpected-http', function () {
             serverUrl;
         beforeEach(function () {
             handleRequest = undefined;
-            var server = http.createServer(function (req, res, next) {
+            var server = http.createServer(function (req, res) {
                 res.sendDate = false;
-                handleRequest(req, res, next);
+                handleRequest(req, res);
             }).listen(0);
             serverAddress = server.address();
             serverHostname = serverAddress.address === '::' ? 'localhost' : serverAddress.address;
@@ -158,7 +158,7 @@ describe('unexpected-http', function () {
 
         describe('within a timeout', function () {
             beforeEach(function () {
-                handleRequest = function (req, res, next) {
+                handleRequest = function (req, res) {
                     setTimeout(function () {
                         res.setHeader('Content-Type', 'text/plain');
                         res.end('foobar');
@@ -189,7 +189,7 @@ describe('unexpected-http', function () {
 
         describe('using a number as a shorthand for a response with that status code', function () {
             beforeEach(function () {
-                handleRequest = function (req, res, next) {
+                handleRequest = function (req, res) {
                     res.writeHead(412);
                     res.end();
                 };
@@ -208,7 +208,7 @@ describe('unexpected-http', function () {
 
         describe('with a JSON response', function () {
             beforeEach(function () {
-                handleRequest = function (req, res, next) {
+                handleRequest = function (req, res) {
                     res.setHeader('Content-Type', 'application/json');
                     res.end('{"foo": 123}');
                 };
@@ -286,7 +286,7 @@ describe('unexpected-http', function () {
 
             it('should send the correct Authorization header when specified in the headers object', function () {
                 var authorizationHeader;
-                handleRequest = function (req, res, next) {
+                handleRequest = function (req, res) {
                     authorizationHeader = req.headers.authorization;
                     res.end();
                 };
@@ -302,7 +302,7 @@ describe('unexpected-http', function () {
 
             it('should send the correct Authorization header when the credentials are specified in the url', function () {
                 var authorizationHeader;
-                handleRequest = function (req, res, next) {
+                handleRequest = function (req, res) {
                     authorizationHeader = req.headers.authorization;
                     res.end();
                 };
@@ -316,7 +316,7 @@ describe('unexpected-http', function () {
 
         describe('with a request body stream', function () {
             beforeEach(function () {
-                handleRequest = function (req, res, next) {
+                handleRequest = function (req, res) {
                     req.pipe(res);
                 };
             });
