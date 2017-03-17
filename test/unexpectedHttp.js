@@ -156,6 +156,23 @@ describe('unexpected-http', function () {
             serverUrl = 'http://' + serverHostname + ':' + serverAddress.port + '/';
         });
 
+        it('should provide a context object', function () {
+            handleRequest = function (req, res) {
+                res.writeHead(503);
+                res.end();
+            };
+            return expect({
+                url: serverUrl,
+                timeout: 20
+            }, 'to yield HTTP response satisfying', 503).then(function (context) {
+                expect(context, 'to satisfy', {
+                    httpRequest: {},
+                    httpResponse: {},
+                    httpExchange: {}
+                });
+            });
+        });
+
         describe('within a timeout', function () {
             beforeEach(function () {
                 handleRequest = function (req, res) {
