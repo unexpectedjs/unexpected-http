@@ -64,7 +64,7 @@
     "phantomjs-prebuilt": "2.1.7",
     "semver": "5.0.3",
     "stream-http": "2.4.0",
-    "unexpected": "10.10.8",
+    "unexpected": "10.26.3",
     "unexpected-documentation-site-generator": "^4.0.0",
     "unexpected-markdown": "^1.4.0"
   },
