@@ -189,6 +189,25 @@ describe('unexpected-http', function () {
             });
         });
 
+        describe('using a number as a shorthand for a response with that status code', function () {
+            beforeEach(function () {
+                handleRequest = function (req, res, next) {
+                    res.writeHead(412);
+                    res.end();
+                };
+            });
+
+            it('should succeed', function () {
+                return expect('GET ' + serverUrl, 'to yield HTTP response satisfying', 412);
+            });
+
+            it('should fail with a diff', function () {
+                return expect(function () {
+                    return expect('GET ' + serverUrl, 'to yield HTTP response satisfying', 503);
+                }, 'to error with', /HTTP\/1\.1 412 Precondition Failed \/\/ should be 503 Service Unavailable/);
+            });
+        });
+
         describe('with a JSON response', function () {
             beforeEach(function () {
                 handleRequest = function (req, res, next) {
