@@ -7,11 +7,10 @@ var unexpected = require('unexpected'),
 describe('unexpected-http', function () {
     var expect = unexpected.clone()
         .use(require('../lib/unexpectedHttp'))
-        .addAssertion('when delayed a little bit', function (expect, subject) {
-            var that = this;
+        .addAssertion('<any> when delayed a little bit <assertion?>', function (expect) {
             return expect.promise(function (run) {
                 setTimeout(run(function () {
-                    return that.shift(expect, subject, 0);
+                    return expect.shift();
                 }), 1);
             });
         });
@@ -35,8 +34,7 @@ describe('unexpected-http', function () {
                     'Content-Type': /text\/plain/
                 }
             }),
-            'when rejected',
-            'to have message',
+            'when rejected to have message',
                 /Content-Type: text\/html.*\/\/ should match \/text\\\/plain/
         );
     });
@@ -89,8 +87,7 @@ describe('unexpected-http', function () {
                     'to yield HTTP response satisfying',
                     new Error('foobar')
                 ),
-                'when rejected',
-                'to have message', function (message) {
+                'when rejected to have message', function (message) {
                     // The error varies a lot depending on the node.js version:
                     expect(message.replace(/Error\(\{[\s\S]*\}\)$/, 'Error(...)'), 'to equal',
                         "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/'\n" +
@@ -139,8 +136,7 @@ describe('unexpected-http', function () {
                 'to yield HTTP response satisfying',
                 {}
             ),
-            'when rejected',
-            'to have message', /getaddrinfo/
+            'when rejected to have message', /getaddrinfo/
         );
     });
 
@@ -169,19 +165,21 @@ describe('unexpected-http', function () {
                     }, 3);
                 };
             });
+
             it('should not fail if its within the timeframe', function () {
                 return expect({
                     url: serverUrl,
                     timeout: 20
                 }, 'to yield HTTP response satisfying', { body: 'foobar' });
             });
+
             it('should fail if it is not within the timeframe', function () {
                 return expect(
                     expect({
                         url: serverUrl,
                         timeout: 1
                     }, 'to yield HTTP response satisfying', 'foobar'),
-                    'when rejected', 'to have message',
+                    'when rejected to have message',
                         "expected { url: 'http://" + serverHostname + ":" + serverAddress.port + "/', timeout: 1 }\n" +
                         "to yield HTTP response satisfying 'foobar'\n" +
                         "  expected a response within 1 ms"
@@ -231,8 +229,7 @@ describe('unexpected-http', function () {
                             foo: 456
                         }
                     }),
-                    'when rejected',
-                    'to have message', function (message) {
+                    'when rejected to have message', function (message) {
                         expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, '').replace(/\n\s*Transfer-Encoding:.*$|\s*Transfer-Encoding:.*\n/mg, ''), 'to equal',
                             "expected 'GET " + serverUrl + "'\n" +
                             "to yield HTTP response satisfying { body: { foo: 456 } }\n" +
@@ -255,7 +252,7 @@ describe('unexpected-http', function () {
                 it('should succeed', function () {
                     return expect('GET ' + serverUrl, 'to yield HTTP response satisfying', {
                         body: {
-                            foo: expect.it('when delayed a little bit', 'to equal', 123)
+                            foo: expect.it('when delayed a little bit to equal', 123)
                         }
                     });
                 });
@@ -264,14 +261,13 @@ describe('unexpected-http', function () {
                     return expect(
                         expect('GET ' + serverUrl, 'to yield HTTP response satisfying', {
                             body: {
-                                foo: expect.it('when delayed a little bit', 'to equal', 456)
+                                foo: expect.it('when delayed a little bit to equal', 456)
                             }
                         }),
-                        'when rejected',
-                        'to have message', function (message) {
+                        'when rejected to have message', function (message) {
                             expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, '').replace(/\n\s*Transfer-Encoding:.*$|\s*Transfer-Encoding:.*\n/mg, ''), 'to equal',
                                 "expected 'GET " + serverUrl + "'\n" +
-                                "to yield HTTP response satisfying { body: { foo: expect.it('when delayed a little bit', 'to equal', 456) } }\n" +
+                                "to yield HTTP response satisfying { body: { foo: expect.it('when delayed a little bit to equal', 456) } }\n" +
                                 '\n' +
                                 'GET / HTTP/1.1\n' +
                                 'Host: ' + serverHostname + ':' + serverAddress.port + '\n' +
