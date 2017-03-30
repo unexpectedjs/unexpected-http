@@ -20,7 +20,7 @@ Unexpected-HTTP has a declarative syntax for specifying requests to peform.
 
 ### String
 
-A single string of the form "<method> <url>" that will be parsed and the appropriate
+A single string of the form `<method> <url>` that will be parsed and the appropriate
 request issued - see [string assertion](./assertions/string/to-yield-response/).
 
 ```js
