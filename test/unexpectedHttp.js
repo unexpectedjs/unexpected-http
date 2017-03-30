@@ -161,10 +161,7 @@ describe('unexpected-http', function () {
                 res.writeHead(503);
                 res.end();
             };
-            return expect({
-                url: serverUrl,
-                timeout: 20
-            }, 'to yield HTTP response satisfying', 503).then(function (context) {
+            return expect(serverUrl, 'to yield HTTP response satisfying', 503).then(function (context) {
                 expect(context, 'to satisfy', {
                     httpRequest: {},
                     httpResponse: {},
@@ -186,7 +183,7 @@ describe('unexpected-http', function () {
             it('should not fail if its within the timeframe', function () {
                 return expect({
                     url: serverUrl,
-                    timeout: 20
+                    timeout: 1000
                 }, 'to yield HTTP response satisfying', { body: 'foobar' });
             });
 
