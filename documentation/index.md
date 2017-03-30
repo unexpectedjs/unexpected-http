@@ -8,7 +8,7 @@ repository: https://github.com/unexpectedjs/unexpected-http
 unexpected-http
 ===============
 
-This plugin provides assertions alowing HTTP requests to be declaratively
+This plugin provides assertions allowing HTTP requests to be declaratively
 specified which are issued and the responses checked against expectations.
 
 Works with node.js and in browsers via [browserify](http://browserify.org) (see [example](../tests/index.html)).
@@ -16,7 +16,7 @@ Works with node.js and in browsers via [browserify](http://browserify.org) (see 
 Request Syntax
 --------------
 
-Unexpected-HTTP has a declarative syntax for specifying requests to peform.
+Unexpected-HTTP has a declarative syntax for specifying requests to perform.
 
 ### String
 
