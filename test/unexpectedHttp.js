@@ -47,7 +47,14 @@ describe('unexpected-http', function () {
         getaddrinfoError = new Error('getaddrinfo EADDRINFO');
         getaddrinfoError.code = getaddrinfoError.errno = 'EADDRINFO';
     } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
-        getaddrinfoError = new Error('getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com');
+        var message = 'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+        if (semver.satisfies(nodeJsVersion, '>=9.7.0')) {
+            // https://github.com/nodejs/node/issues/19716
+            getaddrinfoError = new Error();
+            getaddrinfoError.message = message;
+        } else {
+            getaddrinfoError = new Error(message);
+        }
         if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
             getaddrinfoError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
             getaddrinfoError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
@@ -109,7 +116,14 @@ describe('unexpected-http', function () {
             expectedError = new Error('getaddrinfo EADDRINFO');
             expectedError.code = expectedError.errno = 'EADDRINFO';
         } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
-            expectedError = new Error('getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com');
+            var message = 'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+            if (semver.satisfies(nodeJsVersion, '>=9.7.0')) {
+                // https://github.com/nodejs/node/issues/19716
+                expectedError = new Error();
+                expectedError.message = message;
+            } else {
+                expectedError = new Error(message);
+            }
             if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
                 expectedError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
                 expectedError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
