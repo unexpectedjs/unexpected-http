@@ -35,7 +35,7 @@ describe('unexpected-http', function () {
                 }
             }),
             'when rejected to have message',
-                /Content-Type: text\/html.*\/\/ should match \/text\\\/plain/
+            /Content-Type: text\/html.*\/\/ should match \/text\\\/plain/
         );
     });
 
@@ -92,8 +92,8 @@ describe('unexpected-http', function () {
                     expect(message.replace(/Error\(\{[\s\S]*\}\)$/, 'Error(...)'), 'to equal',
                         "expected 'GET http://www.veqwjioevjqwoevijqwokevijqwioevjkqwioevq.com/'\n" +
                         "to yield HTTP response satisfying Error('foobar')\n" +
-                        "\n" +
-                        "Error(...)"
+                        '\n' +
+                        'Error(...)'
                     );
                 }
             );
@@ -194,9 +194,9 @@ describe('unexpected-http', function () {
                         timeout: 1
                     }, 'to yield HTTP response satisfying', 'foobar'),
                     'when rejected to have message',
-                        "expected { url: 'http://" + serverHostname + ":" + serverAddress.port + "/', timeout: 1 }\n" +
+                    "expected { url: 'http://" + serverHostname + ':' + serverAddress.port + "/', timeout: 1 }\n" +
                         "to yield HTTP response satisfying 'foobar'\n" +
-                        "  expected a response within 1 ms"
+                        '  expected a response within 1 ms'
                 );
             });
         });
@@ -246,7 +246,7 @@ describe('unexpected-http', function () {
                     'when rejected to have message', function (message) {
                         expect(message.replace(/^\s*Connection:.*\n/m, '').replace(/\n\s*Content-Length:.*$|\s*Content-Length:.*\n/mg, '').replace(/\n\s*Transfer-Encoding:.*$|\s*Transfer-Encoding:.*\n/mg, ''), 'to equal',
                             "expected 'GET " + serverUrl + "'\n" +
-                            "to yield HTTP response satisfying { body: { foo: 456 } }\n" +
+                            'to yield HTTP response satisfying { body: { foo: 456 } }\n' +
                             '\n' +
                             'GET / HTTP/1.1\n' +
                             'Host: ' + serverHostname + ':' + serverAddress.port + '\n' +
