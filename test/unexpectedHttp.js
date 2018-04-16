@@ -158,16 +158,23 @@ describe('unexpected-http', function () {
         var handleRequest,
             serverHostname,
             serverAddress,
-            serverUrl;
+            serverUrl,
+            server;
+
         beforeEach(function () {
             handleRequest = undefined;
-            var server = http.createServer(function (req, res) {
+            server = http.createServer(function (req, res) {
                 res.sendDate = false;
                 handleRequest(req, res);
-            }).listen(0);
+            });
+            server.listen(0);
             serverAddress = server.address();
             serverHostname = serverAddress.address === '::' ? 'localhost' : serverAddress.address;
             serverUrl = 'http://' + serverHostname + ':' + serverAddress.port + '/';
+        });
+
+        afterEach(function () {
+            server.close();
         });
 
         it('should provide a context object', function () {
