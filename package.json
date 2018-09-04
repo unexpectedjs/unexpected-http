@@ -43,7 +43,7 @@
     "messy": "^6.16.0",
     "passerror": "^1.1.0",
     "underscore": "^1.7.0",
-    "unexpected-messy": "^8.0.0"
+    "unexpected-messy": "8.1.0"
   },
   "peerDependencies": {
     "unexpected": "^10.27.0"
