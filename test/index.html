@@ -24,7 +24,7 @@
                 });
 
                 it('should assert a content type for an image', function () {
-                    return expect('GET /node_modules/mocha/images/error.png', 'to yield response', {
+                    return expect('GET /test/image.png', 'to yield response', {
                         headers: {
                             'Content-Type': /^image\/png/
                         }
