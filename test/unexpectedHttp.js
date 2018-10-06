@@ -48,7 +48,7 @@ describe('unexpected-http', function () {
         getaddrinfoError.code = getaddrinfoError.errno = 'EADDRINFO';
     } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
         var message = 'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-        if (semver.satisfies(nodeJsVersion, '>=9.7.0')) {
+        if (semver.satisfies(nodeJsVersion, '>=9.7.0 <10')) {
             // https://github.com/nodejs/node/issues/19716
             getaddrinfoError = new Error();
             getaddrinfoError.message = message;
@@ -117,7 +117,7 @@ describe('unexpected-http', function () {
             expectedError.code = expectedError.errno = 'EADDRINFO';
         } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
             var message = 'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-            if (semver.satisfies(nodeJsVersion, '>=9.7.0')) {
+            if (semver.satisfies(nodeJsVersion, '>=9.7.0 <10')) {
                 // https://github.com/nodejs/node/issues/19716
                 expectedError = new Error();
                 expectedError.message = message;
