@@ -63,7 +63,7 @@
     "semver": "^5.0.3",
     "stream-http": "^2.4.0",
     "unexpected": "^10.27.0",
-    "unexpected-documentation-site-generator": "^4.0.0",
+    "unexpected-documentation-site-generator": "^5.0.0",
     "unexpected-markdown": "^1.4.0"
   },
   "browser": {
