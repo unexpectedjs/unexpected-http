@@ -64,7 +64,7 @@
     "stream-http": "^2.4.0",
     "unexpected": "^10.27.0",
     "unexpected-documentation-site-generator": "^5.0.0",
-    "unexpected-markdown": "^1.4.0"
+    "unexpected-markdown": "^2.0.0"
   },
   "browser": {
     "http": "./node_modules/stream-http",
