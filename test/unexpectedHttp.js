@@ -1,8 +1,8 @@
 /*global describe, it, beforeEach, setTimeout*/
-var unexpected = require('unexpected'),
-  http = require('http'),
-  semver = require('semver'),
-  stream = require('stream');
+var unexpected = require('unexpected');
+var http = require('http');
+var semver = require('semver');
+var stream = require('stream');
 
 describe('unexpected-http', function() {
   var expect = unexpected
