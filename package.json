@@ -43,10 +43,10 @@
     "messy": "^6.16.0",
     "passerror": "^1.1.0",
     "underscore": "^1.7.0",
-    "unexpected-messy": "^8.0.0"
+    "unexpected-messy": "^8.2.0"
   },
   "peerDependencies": {
-    "unexpected": "^10.27.0"
+    "unexpected": "^10.27.0 || ^11.0.0-4"
   },
   "devDependencies": {
     "browserify": "^13.1.0",
@@ -63,7 +63,7 @@
     "puppeteer": "^1.11.0",
     "semver": "^5.0.3",
     "stream-http": "^2.4.0",
-    "unexpected": "^10.27.0",
+    "unexpected": "^11.0.0-4",
     "unexpected-documentation-site-generator": "^5.0.0",
     "unexpected-markdown": "^2.0.0"
   },
