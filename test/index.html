@@ -12,7 +12,7 @@
         <script src="../unexpectedHttp.min.js"></script>
         <script src="../node_modules/magicpen-prism/magicPenPrism.min.js"></script>
         <script>
-            var expect = weknowhow.expect.installPlugin(unexpectedHttp).installPlugin(magicPenPrism);
+            var expect = weknowhow.expect.clone().installPlugin(unexpectedHttp).installPlugin(magicPenPrism);
 
             describe('unexpectedHttp in the browser', function () {
                 it('should assert a content type for HTML', function () {
