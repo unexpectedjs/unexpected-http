@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "test": "npm run test-node && npm run test-browser && npm run lint",
     "test-browser": "npm run prepublish && hesse --port 59891 . -- phantomjs ./node_modules/mocha-phantomjs-core/mocha-phantomjs-core.js http://127.0.0.1:59891/test/index.html spec \"`node -pe 'JSON.stringify({useColors:true})'`\"",
-    "test-node": "mocha --compilers md:unexpected-markdown test/*.js `find documentation -name '*.md'`",
+    "test-node": "mocha --require unexpected-markdown test/*.js `find documentation -name '*.md'`",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true)",
     "coverage": "NODE_ENV=development nyc --reporter=lcov --reporter=text npm run test-node && echo google-chrome coverage/lcov-report/index.html",
     "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedHttp -s unexpectedHttp > unexpectedHttp.min.js",
