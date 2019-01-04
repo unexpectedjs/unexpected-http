@@ -62,7 +62,7 @@
     "nyc": "^13.0.1",
     "puppeteer": "^1.11.0",
     "semver": "^5.0.3",
-    "stream-http": "^2.4.0",
+    "stream-http": "^3.0.0",
     "unexpected": "^11.0.0-4",
     "unexpected-documentation-site-generator": "^5.0.0",
     "unexpected-markdown": "^2.0.0"
