@@ -1,4 +1,3 @@
-/*global describe, it, beforeEach, setTimeout*/
 var unexpected = require('unexpected');
 var http = require('http');
 var semver = require('semver');
