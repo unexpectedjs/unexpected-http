@@ -65,7 +65,10 @@ describe('unexpected-http', function() {
     } else {
       getaddrinfoError = new Error(message);
     }
-    if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
+    if (
+      semver.satisfies(nodeJsVersion, '>=2.0.0') &&
+      semver.satisfies(nodeJsVersion, '<12')
+    ) {
       getaddrinfoError.message +=
         ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
       getaddrinfoError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
@@ -139,7 +142,10 @@ describe('unexpected-http', function() {
       } else {
         expectedError = new Error(message);
       }
-      if (semver.satisfies(nodeJsVersion, '>=2.0.0')) {
+      if (
+        semver.satisfies(nodeJsVersion, '>=2.0.0') &&
+        semver.satisfies(nodeJsVersion, '<12')
+      ) {
         expectedError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
         expectedError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
         expectedError.port = 80;
