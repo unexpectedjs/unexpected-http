@@ -56,7 +56,7 @@
     "eslint-config-pretty-standard": "^2.0.0",
     "eslint-plugin-prettier": "^3.0.1",
     "karma": "^4.1.0",
-    "karma-chrome-launcher": "^2.2.0",
+    "karma-chrome-launcher": "^3.0.0",
     "karma-mocha": "^1.3.0",
     "magicpen-prism": "^3.0.1",
     "mocha": "^6.0.0",
