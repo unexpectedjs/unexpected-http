@@ -468,7 +468,7 @@ describe('unexpected-http', function() {
           },
           'to yield HTTP response satisfying',
           {
-            body: new Buffer('foobar', 'utf-8')
+            body: Buffer.from('foobar', 'utf-8')
           }
         );
       });
