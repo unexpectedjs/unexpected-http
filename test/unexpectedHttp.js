@@ -189,7 +189,7 @@ describe('unexpected-http', function() {
       serverAddress = server.address();
       serverHostname =
         serverAddress.address === '::' ? 'localhost' : serverAddress.address;
-      serverUrl = 'http://' + serverHostname + ':' + serverAddress.port + '/';
+      serverUrl = `http://${serverHostname}:${serverAddress.port}/`;
     });
 
     afterEach(function() {
@@ -244,13 +244,9 @@ describe('unexpected-http', function() {
             'foobar'
           ),
           'when rejected to have message',
-          "expected { url: 'http://" +
-            serverHostname +
-            ':' +
-            serverAddress.port +
-            "/', timeout: 1 }\n" +
-            "to yield HTTP response satisfying 'foobar'\n" +
-            '  expected a response within 1 ms'
+          `expected { url: 'http://${serverHostname}:${serverAddress.port}/', timeout: 1 }\n` +
+            `to yield HTTP response satisfying 'foobar'\n` +
+            `  expected a response within 1 ms`
         );
       });
     });
@@ -265,7 +261,7 @@ describe('unexpected-http', function() {
 
       it('should succeed', function() {
         return expect(
-          'GET ' + serverUrl,
+          `GET ${serverUrl}`,
           'to yield HTTP response satisfying',
           412
         );
@@ -275,7 +271,7 @@ describe('unexpected-http', function() {
         return expect(
           function() {
             return expect(
-              'GET ' + serverUrl,
+              `GET ${serverUrl}`,
               'to yield HTTP response satisfying',
               503
             );
@@ -295,7 +291,7 @@ describe('unexpected-http', function() {
       });
 
       it('should succeed', function() {
-        return expect('GET ' + serverUrl, 'to yield HTTP response satisfying', {
+        return expect(`GET ${serverUrl}`, 'to yield HTTP response satisfying', {
           body: {
             foo: 123
           }
@@ -304,7 +300,7 @@ describe('unexpected-http', function() {
 
       it('should fail with a diff', function() {
         return expect(
-          expect('GET ' + serverUrl, 'to yield HTTP response satisfying', {
+          expect(`GET ${serverUrl}`, 'to yield HTTP response satisfying', {
             body: {
               foo: 456
             }
@@ -320,24 +316,18 @@ describe('unexpected-http', function() {
                   ''
                 ),
               'to equal',
-              "expected 'GET " +
-                serverUrl +
-                "'\n" +
-                'to yield HTTP response satisfying { body: { foo: 456 } }\n' +
-                '\n' +
-                'GET / HTTP/1.1\n' +
-                'Host: ' +
-                serverHostname +
-                ':' +
-                serverAddress.port +
-                '\n' +
-                '\n' +
-                'HTTP/1.1 200 OK\n' +
-                'Content-Type: application/json\n' +
-                '\n' +
-                '{\n' +
-                '  foo: 123 // should equal 456\n' +
-                '}'
+              `expected 'GET ${serverUrl}'\n` +
+                `to yield HTTP response satisfying { body: { foo: 456 } }\n` +
+                `\n` +
+                `GET / HTTP/1.1\n` +
+                `Host: ${serverHostname}:${serverAddress.port}\n` +
+                `\n` +
+                `HTTP/1.1 200 OK\n` +
+                `Content-Type: application/json\n` +
+                `\n` +
+                `{\n` +
+                `  foo: 123 // should equal 456\n` +
+                `}`
             );
           })
         );
@@ -346,7 +336,7 @@ describe('unexpected-http', function() {
       describe('with an expectation that requires async work', function() {
         it('should succeed', function() {
           return expect(
-            'GET ' + serverUrl,
+            `GET ${serverUrl}`,
             'to yield HTTP response satisfying',
             {
               body: {
@@ -358,7 +348,7 @@ describe('unexpected-http', function() {
 
         it('should fail with a diff', function() {
           return expect(
-            expect('GET ' + serverUrl, 'to yield HTTP response satisfying', {
+            expect(`GET ${serverUrl}`, 'to yield HTTP response satisfying', {
               body: {
                 foo: expect.it('when delayed a little bit to equal', 456)
               }
@@ -377,24 +367,18 @@ describe('unexpected-http', function() {
                     ''
                   ),
                 'to equal',
-                "expected 'GET " +
-                  serverUrl +
-                  "'\n" +
-                  "to yield HTTP response satisfying { body: { foo: expect.it('when delayed a little bit to equal', 456) } }\n" +
-                  '\n' +
-                  'GET / HTTP/1.1\n' +
-                  'Host: ' +
-                  serverHostname +
-                  ':' +
-                  serverAddress.port +
-                  '\n' +
-                  '\n' +
-                  'HTTP/1.1 200 OK\n' +
-                  'Content-Type: application/json\n' +
-                  '\n' +
-                  '{\n' +
-                  '  foo: 123 // expected: when delayed a little bit to equal 456\n' +
-                  '}'
+                `expected 'GET ${serverUrl}'\n` +
+                  `to yield HTTP response satisfying { body: { foo: expect.it('when delayed a little bit to equal', 456) } }\n` +
+                  `\n` +
+                  `GET / HTTP/1.1\n` +
+                  `Host: ${serverHostname}:${serverAddress.port}\n` +
+                  `\n` +
+                  `HTTP/1.1 200 OK\n` +
+                  `Content-Type: application/json\n` +
+                  `\n` +
+                  `{\n` +
+                  `  foo: 123 // expected: when delayed a little bit to equal 456\n` +
+                  `}`
               );
             })
           );
@@ -409,7 +393,7 @@ describe('unexpected-http', function() {
         };
         return expect(
           {
-            url: 'GET ' + serverUrl,
+            url: `GET ${serverUrl}`,
             headers: {
               Authorization: 'foobar'
             }
@@ -429,12 +413,7 @@ describe('unexpected-http', function() {
         };
         return expect(
           {
-            url:
-              'GET http://foobar:quux@' +
-              serverHostname +
-              ':' +
-              serverAddress.port +
-              '/'
+            url: `GET http://foobar:quux@${serverHostname}:${serverAddress.port}/`
           },
           'to yield HTTP response satisfying',
           200
@@ -463,7 +442,7 @@ describe('unexpected-http', function() {
 
         return expect(
           {
-            url: 'PUT ' + serverUrl,
+            url: `PUT ${serverUrl}`,
             body: responseBodyStream
           },
           'to yield HTTP response satisfying',
@@ -483,7 +462,7 @@ describe('unexpected-http', function() {
 
         return expect(
           {
-            url: 'PUT ' + serverUrl,
+            url: `PUT ${serverUrl}`,
             body: erroringStream
           },
           'to yield HTTP response satisfying',
