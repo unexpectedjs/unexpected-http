@@ -75,6 +75,9 @@ describe('unexpected-http', function() {
       getaddrinfoError.port = 80;
     }
     getaddrinfoError.code = getaddrinfoError.errno = 'ENOTFOUND';
+    if (semver.satisfies(nodeJsVersion, '>=13')) {
+      getaddrinfoError.errno = -3008;
+    }
     getaddrinfoError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
   } else {
     getaddrinfoError = new Error('getaddrinfo ENOTFOUND');
@@ -151,6 +154,9 @@ describe('unexpected-http', function() {
         expectedError.port = 80;
       }
       expectedError.code = expectedError.errno = 'ENOTFOUND';
+      if (semver.satisfies(nodeJsVersion, '>=13')) {
+        expectedError.errno = -3008;
+      }
       expectedError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
     } else {
       expectedError = new Error('getaddrinfo ENOTFOUND');
