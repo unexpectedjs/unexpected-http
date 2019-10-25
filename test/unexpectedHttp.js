@@ -20,10 +20,7 @@ function createGetAddrInfoError(host, port) {
     } else {
       getaddrinfoError = new Error(message);
     }
-    if (
-      semver.satisfies(nodeJsVersion, '>=2.0.0') &&
-      semver.satisfies(nodeJsVersion, '<12')
-    ) {
+    if (semver.satisfies(nodeJsVersion, '>=2.0.0 <12')) {
       getaddrinfoError.message += ` ${host}:${port}`;
       getaddrinfoError.host = host;
       getaddrinfoError.port = port;
