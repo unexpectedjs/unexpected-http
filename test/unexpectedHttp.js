@@ -3,6 +3,44 @@ var http = require('http');
 var semver = require('semver');
 var stream = require('stream');
 
+function createGetAddrInfoError(host, port) {
+  var getaddrinfoError;
+  // Different versions of node have shuffled around the properties of error instances:
+  var nodeJsVersion = process.version.replace(/^v/, '');
+  if (nodeJsVersion === '0.10.29') {
+    getaddrinfoError = new Error('getaddrinfo EADDRINFO');
+    getaddrinfoError.code = getaddrinfoError.errno = 'EADDRINFO';
+  } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
+    var message =
+      'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+    if (semver.satisfies(nodeJsVersion, '>=9.7.0 <10')) {
+      // https://github.com/nodejs/node/issues/19716
+      getaddrinfoError = new Error();
+      getaddrinfoError.message = message;
+    } else {
+      getaddrinfoError = new Error(message);
+    }
+    if (
+      semver.satisfies(nodeJsVersion, '>=2.0.0') &&
+      semver.satisfies(nodeJsVersion, '<12')
+    ) {
+      getaddrinfoError.message += ` ${host}:${port}`;
+      getaddrinfoError.host = host;
+      getaddrinfoError.port = port;
+    }
+    getaddrinfoError.code = getaddrinfoError.errno = 'ENOTFOUND';
+    if (semver.satisfies(nodeJsVersion, '>=13')) {
+      getaddrinfoError.errno = -3008;
+    }
+    getaddrinfoError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
+  } else {
+    getaddrinfoError = new Error('getaddrinfo ENOTFOUND');
+    getaddrinfoError.code = getaddrinfoError.errno = 'ENOTFOUND';
+  }
+  getaddrinfoError.syscall = 'getaddrinfo';
+  return getaddrinfoError;
+}
+
 describe('unexpected-http', function() {
   var expect = unexpected
     .clone()
@@ -48,49 +86,17 @@ describe('unexpected-http', function() {
     );
   });
 
-  var getaddrinfoError;
-  // I do not know the exact version where this change was introduced. Hopefully this is enough to get
-  // it working on Travis (0.10.36 presently):
-  var nodeJsVersion = process.version.replace(/^v/, '');
-  if (nodeJsVersion === '0.10.29') {
-    getaddrinfoError = new Error('getaddrinfo EADDRINFO');
-    getaddrinfoError.code = getaddrinfoError.errno = 'EADDRINFO';
-  } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
-    var message =
-      'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-    if (semver.satisfies(nodeJsVersion, '>=9.7.0 <10')) {
-      // https://github.com/nodejs/node/issues/19716
-      getaddrinfoError = new Error();
-      getaddrinfoError.message = message;
-    } else {
-      getaddrinfoError = new Error(message);
-    }
-    if (
-      semver.satisfies(nodeJsVersion, '>=2.0.0') &&
-      semver.satisfies(nodeJsVersion, '<12')
-    ) {
-      getaddrinfoError.message +=
-        ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
-      getaddrinfoError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-      getaddrinfoError.port = 80;
-    }
-    getaddrinfoError.code = getaddrinfoError.errno = 'ENOTFOUND';
-    if (semver.satisfies(nodeJsVersion, '>=13')) {
-      getaddrinfoError.errno = -3008;
-    }
-    getaddrinfoError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-  } else {
-    getaddrinfoError = new Error('getaddrinfo ENOTFOUND');
-    getaddrinfoError.code = getaddrinfoError.errno = 'ENOTFOUND';
-  }
-  getaddrinfoError.syscall = 'getaddrinfo';
-
   describe('with the expected response object containing an error property @integration', function() {
     it('should expect an error #2', function() {
       return expect(
         'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
         'to yield HTTP response satisfying',
-        { error: getaddrinfoError }
+        {
+          error: createGetAddrInfoError(
+            'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com',
+            80
+          )
+        }
       );
     });
   });
@@ -100,7 +106,7 @@ describe('unexpected-http', function() {
       return expect(
         'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
         'to yield HTTP response satisfying',
-        getaddrinfoError
+        createGetAddrInfoError('www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com', 80)
       );
     });
 
@@ -128,45 +134,10 @@ describe('unexpected-http', function() {
   });
 
   it('should expect an error if the response is given as an error @integration', function() {
-    var expectedError;
-    // I do not know the exact version where this change was introduced. Hopefully this is enough to get
-    // it working on Travis (0.10.36 presently):
-    var nodeJsVersion = process.version.replace(/^v/, '');
-    if (nodeJsVersion === '0.10.29') {
-      expectedError = new Error('getaddrinfo EADDRINFO');
-      expectedError.code = expectedError.errno = 'EADDRINFO';
-    } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
-      var message =
-        'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-      if (semver.satisfies(nodeJsVersion, '>=9.7.0 <10')) {
-        // https://github.com/nodejs/node/issues/19716
-        expectedError = new Error();
-        expectedError.message = message;
-      } else {
-        expectedError = new Error(message);
-      }
-      if (
-        semver.satisfies(nodeJsVersion, '>=2.0.0') &&
-        semver.satisfies(nodeJsVersion, '<12')
-      ) {
-        expectedError.message += ' www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com:80';
-        expectedError.host = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-        expectedError.port = 80;
-      }
-      expectedError.code = expectedError.errno = 'ENOTFOUND';
-      if (semver.satisfies(nodeJsVersion, '>=13')) {
-        expectedError.errno = -3008;
-      }
-      expectedError.hostname = 'www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
-    } else {
-      expectedError = new Error('getaddrinfo ENOTFOUND');
-      expectedError.code = expectedError.errno = 'ENOTFOUND';
-    }
-    expectedError.syscall = 'getaddrinfo';
     return expect(
       'GET http://www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com/',
       'to yield HTTP response satisfying',
-      expectedError
+      createGetAddrInfoError('www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com', 80)
     );
   });
 
