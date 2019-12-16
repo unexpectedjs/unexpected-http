@@ -68,7 +68,7 @@
     "nyc": "^14.0.0",
     "prettier": "~1.19.1",
     "puppeteer": "^2.0.0",
-    "semver": "^6.0.0",
+    "semver": "^7.0.0",
     "stream-http": "^3.0.0",
     "unexpected": "^11.0.0-4",
     "unexpected-documentation-site-generator": "^6.0.0",
