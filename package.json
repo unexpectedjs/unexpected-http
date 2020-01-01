@@ -46,7 +46,7 @@
     "unexpected-messy": "^9.0.0"
   },
   "peerDependencies": {
-    "unexpected": "^10.27.0 || ^11.0.0-4"
+    "unexpected": "^10.27.0 || ^11.12.1"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
@@ -70,7 +70,7 @@
     "puppeteer": "^2.0.0",
     "semver": "^7.0.0",
     "stream-http": "^3.0.0",
-    "unexpected": "^11.0.0-4",
+    "unexpected": "^11.12.1",
     "unexpected-documentation-site-generator": "^6.0.0",
     "unexpected-markdown": "^4.0.0"
   },
