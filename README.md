@@ -1,5 +1,4 @@
-unexpected-http
-===============
+# unexpected-http
 
 [Unexpected](http://github.com/unexpectedjs/unexpected) plugin for testing HTTP servers. Uses same syntax as [unexpected-express](https://github.com/unexpectedjs/unexpected-express) whenever possible.
 
