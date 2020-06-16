@@ -67,7 +67,7 @@
     "mocha": "^7.0.0",
     "nyc": "^15.0.0",
     "prettier": "~2.0.2",
-    "puppeteer": "^3.0.0",
+    "puppeteer": "^4.0.0",
     "semver": "^7.0.0",
     "stream-http": "^3.0.0",
     "unexpected": "^11.12.1",
