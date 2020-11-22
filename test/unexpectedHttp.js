@@ -42,18 +42,19 @@ describe('unexpected-http', function () {
   var expect = unexpected
     .clone()
     .use(require('../lib/unexpectedHttp'))
-    .addAssertion('<any> when delayed a little bit <assertion?>', function (
-      expect
-    ) {
-      return expect.promise(function (run) {
-        setTimeout(
-          run(function () {
-            return expect.shift();
-          }),
-          1
-        );
-      });
-    });
+    .addAssertion(
+      '<any> when delayed a little bit <assertion?>',
+      function (expect) {
+        return expect.promise(function (run) {
+          setTimeout(
+            run(function () {
+              return expect.shift();
+            }),
+            1
+          );
+        });
+      }
+    );
 
   expect.output.preferredWidth = 80;
 
