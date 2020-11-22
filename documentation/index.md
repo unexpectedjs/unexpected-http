@@ -49,6 +49,10 @@ describe('google.com', function () {
 });
 ```
 
+## Releases
+
+[Changelog](https://github.com/unexpectedjs/unexpected-http/blob/master/CHANGELOG.md)
+
 ## License
 
 Unexpected-http is licensed under a standard 3-clause BSD license -- see the `LICENSE` file for details.
