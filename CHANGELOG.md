@@ -1,3 +1,7 @@
+### v8.0.1 (2020-11-22)
+
+- [Update unexpected-messy to ^10.0.0](https://github.com/unexpectedjs/unexpected-http/commit/904b716974099b1aabf616b278199985d4388ce5) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+
 ### v8.0.0 (2020-11-22)
 
 #### Pull requests
