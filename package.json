@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "eslint . && prettier --check '**/*.{js,md}'",
+    "lint": "eslint . && prettier --check '**/*.{js,json,md}'",
     "test": "npm run test-node && npm run test-browser",
     "test-browser": "npm run prepublish && karma start --single-run",
     "test-node": "mocha test/*.js `find documentation -name '*.md'`",
