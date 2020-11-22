@@ -1,3 +1,41 @@
+### v8.0.0 (2020-11-22)
+
+#### Pull requests
+
+- [#73](https://github.com/unexpectedjs/unexpected-http/pull/73) Upgrade eslint-config-standard to version 16.0.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#71](https://github.com/unexpectedjs/unexpected-http/pull/71) Upgrade eslint-config-standard to version 15.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#69](https://github.com/unexpectedjs/unexpected-http/pull/69) Upgrade browserify to version 17.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#66](https://github.com/unexpectedjs/unexpected-http/pull/66) Upgrade prettier to version 2.1.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#64](https://github.com/unexpectedjs/unexpected-http/pull/64) Upgrade eslint-plugin-mocha to version 8.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#59](https://github.com/unexpectedjs/unexpected-http/pull/59) Upgrade puppeteer to version 5.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#55](https://github.com/unexpectedjs/unexpected-http/pull/55) Upgrade eslint-plugin-mocha to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#54](https://github.com/unexpectedjs/unexpected-http/pull/54) Upgrade eslint to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#53](https://github.com/unexpectedjs/unexpected-http/pull/53) Upgrade puppeteer to version 3.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#52](https://github.com/unexpectedjs/unexpected-http/pull/52) Upgrade karma-mocha to version 2.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#51](https://github.com/unexpectedjs/unexpected-http/pull/51) Upgrade karma to version 5.0.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#48](https://github.com/unexpectedjs/unexpected-http/pull/48) Upgrade mocha to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#47](https://github.com/unexpectedjs/unexpected-http/pull/47) Upgrade unexpected-markdown to version 5.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#46](https://github.com/unexpectedjs/unexpected-http/pull/46) Upgrade magicpen-prism to version 4.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#45](https://github.com/unexpectedjs/unexpected-http/pull/45) Upgrade eslint-plugin-node to version 11.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#44](https://github.com/unexpectedjs/unexpected-http/pull/44) Upgrade nyc to version 15.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#43](https://github.com/unexpectedjs/unexpected-http/pull/43) Upgrade semver to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#42](https://github.com/unexpectedjs/unexpected-http/pull/42) Upgrade prettier to version 1.19.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#41](https://github.com/unexpectedjs/unexpected-http/pull/41) Upgrade puppeteer to version 2.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#40](https://github.com/unexpectedjs/unexpected-http/pull/40) Upgrade eslint-plugin-node to version 10.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#39](https://github.com/unexpectedjs/unexpected-http/pull/39) Upgrade eslint-config-standard to version 14.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#37](https://github.com/unexpectedjs/unexpected-http/pull/37) Upgrade karma-chrome-launcher to version 3.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#35](https://github.com/unexpectedjs/unexpected-http/pull/35) Upgrade unexpected-markdown to version 4.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#36](https://github.com/unexpectedjs/unexpected-http/pull/36) Upgrade unexpected-messy to version 9.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+
+#### Commits to master
+
+- [Add CHANGELOG.md + offline-github-changelog integration](https://github.com/unexpectedjs/unexpected-http/commit/a53b8a9c6a44a5dc853d37f9aeb171a238d38d9c) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Update mocha to ^8.2.1, switch to .mocharc.json](https://github.com/unexpectedjs/unexpected-http/commit/1aa4ded20673eec25d4c516c60d5e78deb1b44c2) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Drop node.js 8 support, add 14, lint with 14 \(semver-major\)](https://github.com/unexpectedjs/unexpected-http/commit/85c2557929aee4395c4ab0d7246b2d384ea2f065) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Accept unexpected ^12.0.0 as a peer dep](https://github.com/unexpectedjs/unexpected-http/commit/8b15f9ea443d416394b8e96f5ef8a28e67223db0) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Update unexpected to ^12.0.0](https://github.com/unexpectedjs/unexpected-http/commit/00788a836b418ebaccc83ef866f098f4a1924959) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [+17 more](https://github.com/unexpectedjs/unexpected-http/compare/v7.0.0...v8.0.0)
+
 ### v7.0.0 (2019-05-21)
 
 #### Pull requests
