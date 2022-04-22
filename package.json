@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/unexpectedjs/unexpected-http",
   "dependencies": {
-    "messy": "^6.16.0",
+    "messy": "^7.0.0",
     "passerror": "^1.1.0",
     "underscore": "^1.7.0",
     "unexpected-messy": "^10.0.0"
