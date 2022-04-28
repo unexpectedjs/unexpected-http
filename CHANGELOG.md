@@ -1,3 +1,34 @@
+### v8.0.1 (2022-04-28)
+
+#### Pull requests
+
+- [#116](https://github.com/unexpectedjs/unexpected-http/pull/116) Upgrade puppeteer to version 13.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#115](https://github.com/unexpectedjs/unexpected-http/pull/115) Upgrade eslint-plugin-mocha to version 10.0.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#112](https://github.com/unexpectedjs/unexpected-http/pull/112) Upgrade puppeteer to version 12.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#111](https://github.com/unexpectedjs/unexpected-http/pull/111) Upgrade prettier to version 2.5.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#108](https://github.com/unexpectedjs/unexpected-http/pull/108) Upgrade puppeteer to version 11.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#103](https://github.com/unexpectedjs/unexpected-http/pull/103) Upgrade prettier to version 2.4.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#105](https://github.com/unexpectedjs/unexpected-http/pull/105) Upgrade eslint-plugin-promise to version 5.1.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#96](https://github.com/unexpectedjs/unexpected-http/pull/96) Upgrade puppeteer to version 10.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#95](https://github.com/unexpectedjs/unexpected-http/pull/95) Upgrade eslint-plugin-mocha to version 9.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#91](https://github.com/unexpectedjs/unexpected-http/pull/91) Upgrade puppeteer to version 9.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#87](https://github.com/unexpectedjs/unexpected-http/pull/87) Upgrade puppeteer to version 8.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#84](https://github.com/unexpectedjs/unexpected-http/pull/84) Upgrade magicpen-prism to version 5.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#83](https://github.com/unexpectedjs/unexpected-http/pull/83) Upgrade puppeteer to version 7.0.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#82](https://github.com/unexpectedjs/unexpected-http/pull/82) Upgrade puppeteer to version 6.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#81](https://github.com/unexpectedjs/unexpected-http/pull/81) Upgrade karma to version 6.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#80](https://github.com/unexpectedjs/unexpected-http/pull/80) Upgrade eslint-config-prettier to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#78](https://github.com/unexpectedjs/unexpected-http/pull/78) Upgrade eslint-plugin-standard to version 5.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+
+#### Commits to master
+
+- [Update unexpected the dev dep to ^13.0.0, allow 13 for the peer dep](https://github.com/unexpectedjs/unexpected-http/commit/a8c0c1ba98d37d61f22bb7fc3065f205364458aa) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Whoops, make eslint-plugin-n a dev dep](https://github.com/unexpectedjs/unexpected-http/commit/53d1183cc112fab41b83f464d370dddae9e06630) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [npm i eslint-plugin-n eslint-config-standard@latest && npm uninstall eslint-plugin-node eslint-plugin-standard](https://github.com/unexpectedjs/unexpected-http/commit/87032198183ba227cc86789d2553d7138ff381d1) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [Update eslint-plugin-promise to version 6.0.0](https://github.com/unexpectedjs/unexpected-http/commit/09acd3738c005b968cda9391183638132dcecec8) ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [Unsupport node.js 10](https://github.com/unexpectedjs/unexpected-http/commit/25eeb7f9e5031033036f33e9626e6d793ca8f258) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [+8 more](https://github.com/unexpectedjs/unexpected-http/compare/v8.0.1...v8.0.1)
+
 ### v8.0.1 (2020-11-22)
 
 - [Update unexpected-messy to ^10.0.0](https://github.com/unexpectedjs/unexpected-http/commit/904b716974099b1aabf616b278199985d4388ce5) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
