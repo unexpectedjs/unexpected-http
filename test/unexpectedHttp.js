@@ -1,17 +1,17 @@
-var unexpected = require('unexpected');
-var http = require('http');
-var semver = require('semver');
-var stream = require('stream');
+const unexpected = require('unexpected');
+const http = require('http');
+const semver = require('semver');
+const stream = require('stream');
 
 function createGetAddrInfoError(host, port) {
-  var getaddrinfoError;
+  let getaddrinfoError;
   // Different versions of node have shuffled around the properties of error instances:
-  var nodeJsVersion = process.version.replace(/^v/, '');
+  const nodeJsVersion = process.version.replace(/^v/, '');
   if (nodeJsVersion === '0.10.29') {
     getaddrinfoError = new Error('getaddrinfo EADDRINFO');
     getaddrinfoError.code = getaddrinfoError.errno = 'EADDRINFO';
   } else if (semver.satisfies(nodeJsVersion, '>=0.12.0')) {
-    var message =
+    const message =
       'getaddrinfo ENOTFOUND www.icwqjecoiqwjecoiwqjecoiwqjceoiwq.com';
     if (semver.satisfies(nodeJsVersion, '>=9.7.0 <10')) {
       // https://github.com/nodejs/node/issues/19716
@@ -39,7 +39,7 @@ function createGetAddrInfoError(host, port) {
 }
 
 describe('unexpected-http', function () {
-  var expect = unexpected
+  const expect = unexpected
     .clone()
     .use(require('../lib/unexpectedHttp'))
     .addAssertion(
@@ -152,7 +152,7 @@ describe('unexpected-http', function () {
   });
 
   describe('with a local test server', function () {
-    var handleRequest, serverHostname, serverAddress, serverUrl, server;
+    let handleRequest, serverHostname, serverAddress, serverUrl, server;
 
     beforeEach(function () {
       handleRequest = undefined;
@@ -361,7 +361,7 @@ describe('unexpected-http', function () {
       });
 
       it('should send the correct Authorization header when specified in the headers object', function () {
-        var authorizationHeader;
+        let authorizationHeader;
         handleRequest = function (req, res) {
           authorizationHeader = req.headers.authorization;
           res.end();
@@ -381,7 +381,7 @@ describe('unexpected-http', function () {
       });
 
       it('should send the correct Authorization header when the credentials are specified in the url', function () {
-        var authorizationHeader;
+        let authorizationHeader;
         handleRequest = function (req, res) {
           authorizationHeader = req.headers.authorization;
           res.end();
@@ -406,7 +406,7 @@ describe('unexpected-http', function () {
       });
 
       it('should succeed', function () {
-        var responseBodyStream = new stream.Readable();
+        const responseBodyStream = new stream.Readable();
         responseBodyStream._read = function (num, cb) {
           responseBodyStream._read = function () {};
           setTimeout(function () {
@@ -428,7 +428,7 @@ describe('unexpected-http', function () {
       });
 
       it('should fail if there was an error on the stream', function () {
-        var erroringStream = new stream.Readable();
+        const erroringStream = new stream.Readable();
         erroringStream._read = function (num, cb) {
           setTimeout(function () {
             erroringStream.emit('error', new Error('Fake error'));
