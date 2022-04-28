@@ -1,4 +1,13 @@
-### v8.0.1 (2022-04-28)
+### v8.1.0 (2022-04-28)
+
+- [Add unexpectedHttp.js to .prettierignore](https://github.com/unexpectedjs/unexpected-http/commit/a8c8edc3f030f322868501752f0d72a47526d2d9) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [eslint --fix .](https://github.com/unexpectedjs/unexpected-http/commit/3a00125a543994d5656ebc33064eeab96b6d5291) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Unsupport node.js 12](https://github.com/unexpectedjs/unexpected-http/commit/de9ae652ad08bfcbd335cc2e42f2c131b95f2f14) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Fiddle with the rollup setup](https://github.com/unexpectedjs/unexpected-http/commit/80577d9901b2fd661b0ec17b48a4f43ca1693918) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Add unexpectedHttp.js to .eslintignore](https://github.com/unexpectedjs/unexpected-http/commit/0d59267af0965037f2e8139ab9e37c73485d64e9) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [+5 more](https://github.com/unexpectedjs/unexpected-http/compare/v8.1.0...v8.1.0)
+
+### v8.1.0 (2022-04-28)
 
 #### Pull requests
 
@@ -27,7 +36,7 @@
 - [npm i eslint-plugin-n eslint-config-standard@latest && npm uninstall eslint-plugin-node eslint-plugin-standard](https://github.com/unexpectedjs/unexpected-http/commit/87032198183ba227cc86789d2553d7138ff381d1) ([Andreas Lind](mailto:andreas.lind@workday.com))
 - [Update eslint-plugin-promise to version 6.0.0](https://github.com/unexpectedjs/unexpected-http/commit/09acd3738c005b968cda9391183638132dcecec8) ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
 - [Unsupport node.js 10](https://github.com/unexpectedjs/unexpected-http/commit/25eeb7f9e5031033036f33e9626e6d793ca8f258) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
-- [+8 more](https://github.com/unexpectedjs/unexpected-http/compare/v8.0.1...v8.0.1)
+- [+8 more](https://github.com/unexpectedjs/unexpected-http/compare/v8.0.1...v8.1.0)
 
 ### v8.0.1 (2020-11-22)
 
