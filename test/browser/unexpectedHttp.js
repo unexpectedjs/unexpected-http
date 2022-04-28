@@ -1,7 +1,7 @@
 describe('unexpectedHttp in the browser', function () {
-  var expect = window.weknowhow.expect.clone();
-  expect.installPlugin(window.unexpectedHttp);
-  expect.installPlugin(window.magicPenPrism);
+  const expect = window.weknowhow.expect.clone();
+  console.log('window', window.unexpectedHttp.default);
+  expect.use(window.unexpectedHttp.default).use(window.magicPenPrism);
 
   it('should assert a content type for HTML', function () {
     return expect('GET /base/test/browser/index.html', 'to yield response', {
