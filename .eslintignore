@@ -1,4 +1,5 @@
 /node_modules/
 /coverage/
+/unexpectedHttp.js
 /unexpectedHttp.min.js
 /site-build/
