@@ -13,7 +13,7 @@
     "test-node": "mocha test/*.js `find documentation -name '*.md'`",
     "test:ci": "npm run coverage",
     "coverage": "nyc --reporter=lcov --reporter=text npm run test-node && echo google-chrome coverage/lcov-report/index.html",
-    "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedHttp -s unexpectedHttp > unexpectedHttp.min.js",
+    "prepublish": "rollup -c",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
     "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples",
     "deploy-site": "deploy-site.sh",
@@ -31,6 +31,7 @@
     "client"
   ],
   "files": [
+    "unexpectedHttp.js",
     "unexpectedHttp.min.js",
     "lib"
   ],
